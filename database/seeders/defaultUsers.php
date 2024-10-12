@@ -3,41 +3,36 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class DatabaseSeeder extends Seeder
+class defaultUsers extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->createMany([
+        DB::table('users')->insert([
             [
-                'name' => 'admin',
-                'username' => 'admin',
-                'email' => 'admin@lms.com',
-                'password' => bcrypt('password'),
-                'role' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@lms.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
             ],
             [
-                'name' => 'guru',
                 'username' => 'guru',
                 'email' => 'guru@lms.com',
                 'password' => bcrypt('password'),
                 'role' => 'guru',
             ],
             [
-                'name' => 'siswa',
                 'username' => 'siswa',
                 'email' => 'siswa@lms.com',
                 'password' => bcrypt('password'),
                 'role' => 'user',
-            ],
-        ]);
-        
+                ]
+            ]);
     }
 }

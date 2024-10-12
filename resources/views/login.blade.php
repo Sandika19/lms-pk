@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    @vite('resources/css/app.css')
+</head>
+<body>
 <div>
     <form wire:submit="login" method="post" class="flex justify-center min-h-screen items-center">
         @csrf
@@ -6,11 +16,20 @@
             <h1 class="text-3xl font-semibold">Sign In</h1>
             <p class="text-sm">Sign in to access your account</p>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-error">
+                <ul>
+                    @foreach ($errors->all() as $item )
+                        <li>{{ $item }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="form-group">
             <div class="form-field">
                 <label class="form-label" >Email address</label>
     
-                <input placeholder="Type here" type="email" value="{{ old('email') }}" wire:model="email" class="input max-w-full" />
+                <input placeholder="Type here" name="email" type="email" value="{{ old('email') }}" wire:model="email" class="input max-w-full" />
                 <label class="form-label">
                     <span class="form-label-alt">Please enter a valid email.</span>
                 </label>
@@ -18,7 +37,7 @@
             <div class="form-field">
                 <label class="form-label">Password</label>
                 <div class="form-control">
-                    <input placeholder="Type here" type="password" wire:model="password" class="input max-w-full" />
+                    <input placeholder="Type here" name="password" type="password" wire:model="password" class="input max-w-full" />
                 </div>
             </div>
             <div class="form-field">
@@ -46,5 +65,6 @@
         </div>
     </div>
     </form>
-    </div>
-    
+</div>
+</body>
+</html>
