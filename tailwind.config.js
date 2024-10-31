@@ -7,7 +7,11 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                "custom-gray": "rgba(255, 255, 255, 0.51)",
+            },
+        },
     },
     plugins: [require("rippleui")],
     rippleui: {
