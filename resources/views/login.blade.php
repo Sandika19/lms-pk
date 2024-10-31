@@ -1,75 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('components.layouts.layoutsForm')
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Document</title>
-		@vite('resources/css/app.css')
-	</head>
+@section('content')
 
-	<body>
-		<div>
-			<form wire:submit="login" method="post" class="flex justify-center min-h-screen items-center">
+	<section class="flex">
+		<div class="flex flex-1 justify-center items-center">
+			<form action="login" method="post">
 				@csrf
-				<div class="flex w-full max-w-sm flex-col gap-6">
-					<div class="flex flex-col items-center">
-						<h1 class="text-3xl font-semibold">Sign In</h1>
-						<p class="text-sm">Sign in to access your account</p>
-					</div>
-					@if ($errors->any())
-						<div class="alert alert-error">
-							<ul>
-								@foreach ($errors->all() as $item)
-									<li>{{ $item }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-					<div class="form-group">
-						<div class="form-field">
-							<label class="form-label">Email address</label>
-
-							<input placeholder="Type here" name="email" type="email" value="{{ old('email') }}" wire:model="email"
-								class="input max-w-full" />
-							<label class="form-label">
-								<span class="form-label-alt">Please enter a valid email.</span>
-							</label>
-						</div>
-						<div class="form-field">
-							<label class="form-label">Password</label>
-							<div class="form-control">
-								<input placeholder="Type here" name="password" type="password" wire:model="password" class="input max-w-full" />
+				<div class="card bg-white/50 rounded-3xl min-w-[400px] ">
+					<div class="card-body">
+						<h2 class="card-header font-bold text-2xl mb-4">Login</h2>
+						@if ($errors->any())
+							<div class="alert alert-error">
+								<ul>
+									@foreach ($errors->all() as $item)
+										<li>{{ $item }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
+						<div class="w-full mb-4">
+							<div class="flex items-center border-b border-gray-300 pb-2">
+								<i class="fa-solid fa-user text-gray-500 mr-2"></i>
+								<input type="text" name="email" value="{{ old('email') }}" placeholder="Email"
+									class="w-full bg-transparent focus:outline-none placeholder-gray-400 text-gray-700">
 							</div>
 						</div>
-						<div class="form-field">
-							<div class="form-control justify-between">
-								<div class="flex gap-2">
-									<input type="checkbox" class="checkbox" />
-									<a href="#">Remember me</a>
-								</div>
-								<label class="form-label">
-									<a class="link link-underline-hover link-primary text-sm">Forgot your password?</a>
-								</label>
+						<div class="w-full mb-4">
+							<div class="flex items-center border-b border-gray-300 pb-2">
+								<i class="fa-solid fa-lock text-gray-500 mr-2"></i>
+								<input type="password" name="password" placeholder="Password"
+									class="w-full bg-transparent focus:outline-none placeholder-gray-400 text-gray-700">
 							</div>
 						</div>
-						<div class="form-field pt-5">
-							<div class="form-control justify-between">
-								<button type="submit" class="btn btn-primary w-full">Sign in</button>
-							</div>
-						</div>
-
-						<div class="form-field">
-							<div class="form-control justify-center">
-								<a wire:navigate href="/register" class="link link-underline-hover link-primary text-sm">Don't have an account
-									yet? Sign up.</a>
-							</div>
-						</div>
+						<button type="submit" class="btn hover:bg-[#4A5B92] hover:text-white">
+							<p class="font-semibold">Login</p>
+						</button>
+						<p class="text-center text-slate-500">Don't have an account? <a class="hover:font-semibold text-slate-600"
+								href="#">Register</a></p>
 					</div>
 				</div>
 			</form>
 		</div>
-	</body>
+		<div class="flex-1 flex justify-center items-center">
+			<div class="flex-row mt-8">
+				<h1 class="text-4xl font-semibold text-[#3F3D56]">Welcome to Our Learning <br> Platform!</h1>
+				<p class="mt-2  text-slate-500">Discover an engaging and interactive learning experience. <br> Please log in to
+					continue!</p>
+				<img class="w-[32rem]" src="{{ asset('img/loginImage.png') }}" alt="">
+			</div>
+		</div>
+	</section>
 
-</html>
+@endsection

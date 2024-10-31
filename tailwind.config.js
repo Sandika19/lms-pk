@@ -7,6 +7,11 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                "custom-gray": "rgba(255, 255, 255, 0.51)",
+            },
+        },
+        extend: {
             screens: {
                 md: "850px",
                 lg: "1200px",

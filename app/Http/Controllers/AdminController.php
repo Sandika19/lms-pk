@@ -26,7 +26,7 @@ class AdminController extends Controller
     }
 
     function siswa(){
-        echo'halo selamat datang teman-teman';   
+        return view('dashboard/siswa'); 
         echo "<h1>". Auth::user()->name . "</h1>";
         echo "<a href='/logout'>Logout</a>";
     }
