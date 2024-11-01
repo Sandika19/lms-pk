@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class SesiController extends Controller
 {
     function index(){
-        return view('login');
+        return view('login', [
+            'title' => 'Login'
+        ]);
     }
 
     function login(Request $request){
@@ -27,9 +29,9 @@ class SesiController extends Controller
         if(Auth::attempt($infologin)){
             if(Auth::user()->role == 'admin'){
                 return redirect('dashboard/admin');
-            }elseif(Auth::user()->role == 'user'){
-                return redirect('dashboard/siswa');
-            }elseif(Auth::user()->role == 'guru'){
+            }elseif(Auth::user()->role == 'student'){
+                return redirect('dashboard-student/home');
+            }elseif(Auth::user()->role == 'teacher'){
                 return redirect('dashboard/guru');
             }
         }else{

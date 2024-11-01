@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 aside,
@@ -37,3 +37,13 @@ footer {
     @apply opacity-100 scale-100;
 }
 /* != Profile =! */
+
+/* == Nav Link Sidebar == */
+.nav-link-sidebar {
+    @apply flex items-center justify-start w-full pl-7 py-3 gap-4 hover:border-r-[5px] border-[#4A5B92] hover:bg-[#A9BBF4] hover:bg-opacity-[50%];
+}
+
+.nav-link-active {
+    @apply bg-[#A9BBF4] bg-opacity-50 border-r-[5px] border-[#4a5b92];
+}
+/* != Nav Link Sidebar =! */
