@@ -14,9 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 
-// Route::get('/', function () {
-//     return view('');
-// });
+Route::redirect('/', '/login');
 
 // Route::get('/test',FormAuth::class);
 // // Route::get('/login',Login::class);
@@ -43,8 +41,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/update-profile',[StudentController::class, 'updateProfile']);
     Route::post('/update-profile-post',[StudentController::class, 'updateProfilePost']);
 
-    Route::get('/update-profile/{user}',[StudentController::class, 'showUpdateProfile']);
-    // Route::put('/update-profile/{user}/put',[StudentController::class, 'updateProfileWithId']);
+    Route::get('/update-profile/{student:nis}',[StudentController::class, 'showUpdateProfile']);
+    Route::put('/update-profile/{student:nis}/put',[StudentController::class, 'updateProfilePut']);
 
 });
 

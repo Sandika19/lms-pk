@@ -33,17 +33,22 @@
 					</div>
 
 					<div class="flex justify-end mt-5">
-						<a class="sm:text-xl text-base" href="/update-profile/{{ Auth::user()->id }}">Change Profile</a>
+						<a class="sm:text-xl text-base" href="/update-profile/{{ optional(Auth::user()->student)->nis }}">Change
+							Profile</a>
 					</div>
 
 					<div class="flex flex-col mt-3 sm:text-xl text-base gap-5">
+						<div class="flex flex-col gap-1">
+							<h3 class="text-[#4A5B92] font-semibold">NIS</h3>
+							<p>{{ Auth::user()->student->nis }}</p>
+						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Class</h3>
 							<p>{{ Auth::user()->student->grade }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Email</h3>
-							<p>{{ Auth::user()->student->email }}</p>
+							<p>{{ Auth::user()->email }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Major</h3>

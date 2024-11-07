@@ -43,7 +43,7 @@
 					<p class="text-sm">{{ ucfirst(Auth::user()->role) }}</p>
 					<a
 						class="bg-[#A9BBF4] hover:bg-[#92a1d2] w-full flex items-center justify-center py-3 text-xl mt-6 font-semibold rounded"
-						href="{{ route('student.profile') }}">View Profile</a>
+						href="/update-profile/{{ optional(Auth::user()->student)->nis }}">Update Profile</a>
 					<div
 						class="bg-[#4A5B92] hover:bg-[#3f4e7c] text-white w-full flex items-center justify-center  text-xl mt-3 font-semibold rounded overflow-hidden">
 						<form action="{{ route('logout') }}" method="post" id="logout-form" class="w-full">
