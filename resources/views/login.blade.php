@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="fl
+<section class="flex">
    
 <div class="flex flex-1 justify-center items-center relative">
         <!-- Login Card -->
