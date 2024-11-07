@@ -22,7 +22,7 @@ class Student extends Model
 
     public function getProfilePictureAttribute($value)
     {
-        return $value ?? 'student-profile/profile-user-default.png';
+        return $value ? Storage::url($value) : '/storage/student-profile/profile-user-default.png';
     }
 
     public function isProfileComplete()

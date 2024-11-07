@@ -18,7 +18,8 @@
 
 					<div class="flex sm:flex-row flex-col items-center justify-start gap-5">
 						<div class="w-[130px] h-[130px] rounded-full overflow-hidden">
-							<img class="object-cover w-full h-full" src="{{ Storage::url(Auth::user()->student->profile_picture) }}"
+							<img class="object-cover w-full h-full"
+								src="{{ optional(Auth::user()->student)->profile_picture ?? Auth::user()->getProfileDefault() }}"
 								alt="profile-picture">
 						</div>
 						<div class="flex flex-col justify-center sm:text-start text-center">

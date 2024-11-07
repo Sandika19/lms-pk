@@ -28,12 +28,11 @@ class StudentController extends Controller
 
     public function updateProfile() {
         return view('student.update-profile', [
-            'title' => 'Update Profle'
+            'title' => 'Update Profile'
         ]);
     }
     
     public function updateProfilePost(Request $request) {
-        // dd($request);
         $validatedData = $request->validate([
             "fullname" => "required|string|max:255",
             "email" => "required|email|max:255",
@@ -44,7 +43,6 @@ class StudentController extends Controller
             "profile_picture" => "file|mimes:jpg,jpeg,png|max:3000"
         ]);
 
-        // dd($validatedData["profile_picture"]);
         
        if ($request->file("profile_picture")) {
             $validatedData["profile_picture"] = $request->file("profile_picture")->store("student-profile", "public");
@@ -54,6 +52,13 @@ class StudentController extends Controller
         Student::create($validatedData);
 		return redirect()->route('student.profile')->with("update.profile.success", "Your profile has been updated successfully!");
     }
+
+    // public function showUpdateProfile(Student $student) {
+    //     return view('student.update-profile', [
+    //         'title' => 'Update Profile'
+    //     ]);
+    // }
+
 
 
     

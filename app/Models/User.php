@@ -45,4 +45,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
+
+    public function getProfileDefault() {
+        return '/storage/student-profile/profile-user-default.png';
+    }
 }

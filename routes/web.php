@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/update-profile',[StudentController::class, 'updateProfile']);
     Route::post('/update-profile-post',[StudentController::class, 'updateProfilePost']);
 
-    // Route::get('/update-profile/{user}',[StudentController::class, 'showUpdateProfile']);
+    Route::get('/update-profile/{user}',[StudentController::class, 'showUpdateProfile']);
     // Route::put('/update-profile/{user}/put',[StudentController::class, 'updateProfileWithId']);
 
 });
