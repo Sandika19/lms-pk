@@ -1,5 +1,5 @@
 <div id="sidebar"
-	class="fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-[#3F3D56] transform -translate-x-full transition-transform duration-300">
+	class="fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-[#3F3D56] transform -translate-x-full transition-transform duration-300 z-99">
 	<div class="text-gray-100 text-xl mt-8">
 		<div class="p-2.5 mt-1 flex items-center">
 			<h1 class="font-bold text-gray-200 text-16px ml-3">wew Dashboard</h1>

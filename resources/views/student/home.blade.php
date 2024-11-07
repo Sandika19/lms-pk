@@ -1,12 +1,19 @@
 @extends('dashboard.student')
-{{-- @dd($student->fullname) --}}
+
 @section('content')
+	@if (session()->has('complete.profile'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				completeProfileAlert("{{ session('complete.profile') }}")
+			})
+		</script>
+	@endif
 	{{-- Jumbotron --}}
 	<div id="jumbotron" class="w-full h-[40vh] flex items-center justify-center">
 		<div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
 			<p
 				class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
-				Welcome,</br>
+				Welcome,</br>{{ $student->fullname ?? 'Student' }}
 			</p>
 		</div>
 	</div>

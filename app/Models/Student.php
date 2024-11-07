@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
 {
@@ -16,4 +19,27 @@ class Student extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getProfilePictureAttribute($value)
+    {
+        return $value ?? 'student-profile/profile-user-default.png';
+    }
+
+    public function isProfileComplete()
+    {
+        return $this->user_id && $this->fullname && $this->major; // Tambahkan kolom yang diperlukan
+    }
+
+    public function getMajorAttribute($value)
+{
+        $majors = [
+            'pplg' => 'Pengembangan Perangkat Lunak dan Gim',
+            'dkv' => 'Desain Komunikasi Visual',
+            'otkp' => 'Otomatisasi dan Tata Kelola Perkantoran',
+            'akl' => 'Akuntansi dan Keuangan Lembaga',
+            'bdp' => 'Bisnis Daring dan Pemasaran'
+        ];
+
+        return $majors[$value] ?? Str::upper($value); 
+}
 }

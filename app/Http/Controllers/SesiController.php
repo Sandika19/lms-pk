@@ -30,9 +30,9 @@ class SesiController extends Controller
             if(Auth::user()->role == 'admin'){
                 return redirect('dashboard/admin');
             }elseif(Auth::user()->role == 'student'){
-                return redirect('dashboard-student/home');
+                return redirect('home');
             }elseif(Auth::user()->role == 'teacher'){
-                return redirect('dashboard/guru');
+                return redirect('teacher/home');
             }
         }else{
             return redirect('/login')->withErrors('Username dan password yang dimasukkan tidak sesuai')->withInput();

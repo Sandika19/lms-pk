@@ -4,13 +4,15 @@ use App\Livewire\Login;
 use App\Livewire\FormAuth;
 use App\Livewire\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserAccess;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StudentController;
 
 // Route::get('/', function () {
 //     return view('');
@@ -32,9 +34,21 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin',[AdminController::class,'index']);
     // Route::get('/dashboard/admin',[AdminController::class,'admin'])->middleware(UserAccess::class.':admin');
     // Route::get('/dashboard-teacher/home',[AdminController::class,'guru'])->middleware(UserAccess::class.':guru');
-    Route::get('/dashboard-student/home',[AdminController::class,'student'])->middleware(UserAccess::class.':student')->name('student.home');
     // Route::get('/logout',[SesiController::class,'logout']);
 });
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/home',[StudentController::class, 'index'])->name('student.home')->middleware('check.profile.data');
+    Route::get('/profile',[StudentController::class, 'profile'])->name('student.profile');
+    Route::get('/update-profile',[StudentController::class, 'updateProfile']);
+    Route::post('/update-profile-post',[StudentController::class, 'updateProfilePost']);
+
+    // Route::get('/update-profile/{user}',[StudentController::class, 'showUpdateProfile']);
+    // Route::put('/update-profile/{user}/put',[StudentController::class, 'updateProfileWithId']);
+
+});
+
+
 
 
 // Route::get('/admin', function(){

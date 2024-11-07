@@ -26,15 +26,5 @@ class AdminController extends Controller
         echo "<a href='/logout'>Logout</a>";
     }
 
-    function student(){
-        // Misalnya di controller
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu');
-        }
-        $fullname = Auth::user();
-        dd($fullname->student->fullname);
-        
-      
-        return view('student.home'); 
-    }
+    
 }
