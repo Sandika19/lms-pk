@@ -1,12 +1,13 @@
-@extends('dashboard.student')
+@extends('dashboard.user')
 
 @section('content')
 	<div class="p-6 mb-10">
 		<div class="max-w-5xl w-full bg-white mx-auto rounded-md">
 			<div class="pt-7">
-				<h2 class="text-3xl font-bold mb-10 text-center">Update Profile</h2>
+				<h2 class="text-3xl font-bold mb-10 text-center">Complete Profile</h2>
 
-				<form action="/update-profile-post" method="post" class="px-7" enctype="multipart/form-data" id="update-profile-form">
+				<form action="/complete-profile-post" method="post" class="px-7" enctype="multipart/form-data"
+					id="complete-profile-form">
 					@csrf
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-xl ">
 						<div class="flex flex-col justify-center gap-3 relative">
@@ -123,7 +124,7 @@
 					</div>
 
 					<button type="submit"
-						class="w-full py-4 bg-[#4A5B92] hover:bg-[#3f4e7c] text-xl font-semibold my-10 text-white rounded-md">Update
+						class="w-full py-4 bg-[#4A5B92] hover:bg-[#3f4e7c] text-xl font-semibold my-10 text-white rounded-md">Complete
 						Profile</button>
 				</form>
 			</div>

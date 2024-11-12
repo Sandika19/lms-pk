@@ -35,8 +35,7 @@
 				class="opacity-0 scale-0 absolute right-0 bottom-[-398px] w-[300px] bg-white border-black border-2 border-opacity-20 shadow-xl rounded-md py-5 px-6 origin-top-right z-10 transition-all">
 				<div class="flex flex-col items-center justify-center">
 					<div class="w-[130px] h-[130px] rounded-full overflow-hidden">
-						<img class="object-cover w-full h-full"
-							src="{{ optional(Auth::user()->student)->profile_picture ?? Auth::user()->getProfileDefault() }}"
+						<img class="object-cover w-full h-full" src="{{ Storage::url(Auth::user()->getUserProfile()) }}"
 							alt="profile-picture">
 					</div>
 					<h3 class="text-xl font-semibold mt-4">{{ Auth::user()->username }}</h3>

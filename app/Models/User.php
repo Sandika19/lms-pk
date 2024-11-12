@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Mockery\Undefined;
 
 class User extends Authenticatable
 {
@@ -46,7 +48,23 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
-    public function getProfileDefault() {
-        return '/storage/student-profile/profile-user-default.png';
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function getUserProfile() {
+        $user = Auth::user();
+        
+        $studentProfileDefault = 'profile-default/student-profile-default.png';
+        $teacherProfileDefault = 'profile-default/teacher-profile-default.png';
+        
+        $profilePicture = match ($user->role) {
+            'student' => optional($user->student)->profile_picture ?: $studentProfileDefault,
+            'teacher' => optional($user->teacher)->profile_picture ?: $teacherProfileDefault,
+            default => 'profile-default/default-profile.png'
+        };
+
+        return $profilePicture;
     }
 }

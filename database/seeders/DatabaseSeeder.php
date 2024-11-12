@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -48,5 +49,16 @@ class DatabaseSeeder extends Seeder
         //     'date_of_birth' => '2005-05-15', // Format tanggal: YYYY-MM-DD
         //     'gender' => 'Male',
         // ]);
+        
+        Teacher::create([
+            'user_id' => 2, // Misalnya, ID pengguna yang sudah ada
+            'fullname' => 'Phantom Sensei',
+            'nip' => '123131313',
+            'date_of_birth' => '2005-05-15', // Format tanggal: YYYY-MM-DD
+            'gender' => 'Male',
+        ]);
+
+
+       
     }
 }

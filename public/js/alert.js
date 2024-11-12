@@ -21,6 +21,28 @@ if (updateProfileForm) {
     });
 }
 
+// Complete Student Profile
+const completeProfileForm = document.getElementById("complete-profile-form");
+if (completeProfileForm) {
+    completeProfileForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Confirm Your Information",
+            text: "Please confirm that your profile information is correct before proceeding.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Complete",
+            reverseButtons: true,
+            cancelButtonText: "Cancel",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                completeProfileForm.submit();
+            }
+        });
+    });
+}
+
 // Logout
 const logoutForm = document.getElementById("logout-form");
 if (logoutForm) {
@@ -66,7 +88,7 @@ function completeProfileAlert(text) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Redirect to the form page
-            window.location.href = "/update-profile";
+            window.location.href = "/complete-profile";
         }
     });
 }

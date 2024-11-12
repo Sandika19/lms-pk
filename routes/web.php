@@ -13,8 +13,18 @@ use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use Illuminate\Support\Facades\Storage;
 
 Route::redirect('/', '/login');
+
+Route::get('/tes', function(){
+    return view('tes');
+});
+Route::post('/tes/post', function(){
+    Storage::disk('public')->delete('student-profile/evNeOeAD52sCO7BnOYRYOxd9etXIecpUpff0QVW1.jpg');
+});
+
 
 // Route::get('/test',FormAuth::class);
 // // Route::get('/login',Login::class);
@@ -38,14 +48,18 @@ Route::middleware(['auth'])->group(function(){
 Route::middleware(['auth'])->group(function(){
     Route::get('/home',[StudentController::class, 'index'])->name('student.home')->middleware('check.profile.data');
     Route::get('/profile',[StudentController::class, 'profile'])->name('student.profile');
-    Route::get('/update-profile',[StudentController::class, 'updateProfile']);
-    Route::post('/update-profile-post',[StudentController::class, 'updateProfilePost']);
-
+    Route::get('/complete-profile',[StudentController::class, 'completeProfile']);
+    Route::post('/complete-profile-post',[StudentController::class, 'completeProfilePost']);
     Route::get('/update-profile/{student:nis}',[StudentController::class, 'showUpdateProfile']);
     Route::put('/update-profile/{student:nis}/put',[StudentController::class, 'updateProfilePut']);
-
 });
 
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/teacher/home',[TeacherController::class, 'index']);
+
+
+});
 
 
 

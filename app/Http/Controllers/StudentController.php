@@ -26,13 +26,13 @@ class StudentController extends Controller
         ]);
     }
 
-    public function updateProfile() {
+    public function completeProfile() {
         return view('student.complete-profile', [
             'title' => 'Update Profile'
         ]);
     }
     
-    public function updateProfilePost(Request $request) {
+    public function completeProfilePost(Request $request) {
         $validatedData = $request->validate([
             "fullname" => "required|string|max:255",
             "nis" => "required",
@@ -73,9 +73,9 @@ class StudentController extends Controller
         ]);
 
         if ($request->hasFile("profile_picture")) {
-			if ($student->profile_picture) {
-				Storage::delete($student->profile_picture);
-			}
+            if ($student->profile_picture) {
+                Storage::disk('public')->delete($student->profile_picture);
+            }
 
 			$validatedData["profile_picture"] = $request->file("profile_picture")->store("student-profile", "public");
 		}

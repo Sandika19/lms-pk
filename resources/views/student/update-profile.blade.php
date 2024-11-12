@@ -1,4 +1,5 @@
-@extends('dashboard.student')
+@extends('dashboard.user')
+
 @section('content')
 	<div class="p-6 mb-10">
 		<div class="max-w-5xl w-full bg-white mx-auto rounded-md">
