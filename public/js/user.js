@@ -66,7 +66,7 @@ function generateCalendar(year, month) {
         daysOfWeek.forEach((day) => {
             const dayElement = document.createElement("div");
             dayElement.className =
-                "text-center sm:p-3 py-2 px-0 font-semibold bg-[#D4DDF9] rounded-md";
+                "text-center sm:p-3 py-3 px-0 font-semibold bg-[#D4DDF9] rounded-md";
             dayElement.innerText = day;
             calendarElement.appendChild(dayElement);
         });
@@ -81,7 +81,7 @@ function generateCalendar(year, month) {
         for (let day = 1; day <= daysInMonth; day++) {
             const dayElement = document.createElement("div");
             dayElement.className =
-                "text-center py-2 rounded-md border cursor-pointer hover:bg-slate-300";
+                "text-center py-3 rounded-md border cursor-pointer hover:bg-slate-300";
             dayElement.innerText = day;
 
             // Check if this date is the current date

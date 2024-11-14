@@ -6,8 +6,8 @@ use Livewire\Component;
 
 class FormAuth extends Component
 {
-    public function render()
-    {
-        return view('livewire.form-auth');
-    }
+   public function render()
+   {
+      return view("livewire.form-auth");
+   }
 }

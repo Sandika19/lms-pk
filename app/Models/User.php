@@ -11,60 +11,58 @@ use Mockery\Undefined;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+   use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $guarded = ['id'];
+   /**
+    * The attributes that are mass assignable.
+    *
+    * @var array<int, string>
+    */
+   protected $guarded = ["id"];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+   /**
+    * The attributes that should be hidden for serialization.
+    *
+    * @var array<int, string>
+    */
+   protected $hidden = ["password", "remember_token"];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-    
-    public function student()
-    {
-        return $this->hasOne(Student::class);
-    }
+   /**
+    * Get the attributes that should be cast.
+    *
+    * @return array<string, string>
+    */
+   protected function casts(): array
+   {
+      return [
+         "email_verified_at" => "datetime",
+         "password" => "hashed",
+      ];
+   }
 
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
+   public function student()
+   {
+      return $this->hasOne(Student::class);
+   }
 
-    public function getUserProfile() {
-        $user = Auth::user();
-        
-        $studentProfileDefault = 'profile-default/student-profile-default.png';
-        $teacherProfileDefault = 'profile-default/teacher-profile-default.png';
-        
-        $profilePicture = match ($user->role) {
-            'student' => optional($user->student)->profile_picture ?: $studentProfileDefault,
-            'teacher' => optional($user->teacher)->profile_picture ?: $teacherProfileDefault,
-            default => 'profile-default/default-profile.png'
-        };
+   public function teacher()
+   {
+      return $this->hasOne(Teacher::class);
+   }
 
-        return $profilePicture;
-    }
+   public function getUserProfile()
+   {
+      $user = Auth::user();
+
+      $studentProfileDefault = "profile-default/student-profile-default.png";
+      $teacherProfileDefault = "profile-default/teacher-profile-default.png";
+
+      $profilePicture = match ($user->role) {
+         "student" => optional($user->student)->profile_picture ?: $studentProfileDefault,
+         "teacher" => optional($user->teacher)->profile_picture ?: $teacherProfileDefault,
+         default => "profile-default/default-profile.png",
+      };
+
+      return $profilePicture;
+   }
 }

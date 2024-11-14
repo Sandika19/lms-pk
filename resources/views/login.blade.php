@@ -1,7 +1,6 @@
 @extends('components.layouts.layoutsForm')
 
 @section('content')
-
 	<section class="flex">
 		<div class="flex flex-1 justify-center items-center">
 			<form action="login" method="post">

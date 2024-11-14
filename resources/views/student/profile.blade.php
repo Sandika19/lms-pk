@@ -22,8 +22,8 @@
 								alt="profile-picture">
 						</div>
 						<div class="flex flex-col justify-center sm:text-start text-center">
-							<h3 class="sm:text-2xl text-lg font-semibold">{{ Auth::user()->student->fullname }}</h3>
-							<p class="sm:text-lg text-base">{{ ucfirst(Auth::user()->role) }}</p>
+							<h3 class="sm:text-2xl text-lg font-semibold">{{ $student->fullname }}</h3>
+							<p class="sm:text-lg text-base">{{ ucfirst($student->user->role) }}</p>
 						</div>
 					</div>
 
@@ -32,38 +32,36 @@
 					</div>
 
 					<div class="flex justify-end mt-5">
-						<a class="sm:text-xl text-base" href="/update-profile/{{ optional(Auth::user()->student)->nis }}">Change
+						<a class="sm:text-xl text-base" href="/update-profile/{{ optional($student)->nis }}">Change
 							Profile</a>
 					</div>
 
 					<div class="flex flex-col mt-3 sm:text-xl text-base gap-5">
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">NIS</h3>
-							<p>{{ Auth::user()->student->nis }}</p>
+							<p>{{ $student->nis }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Class</h3>
-							<p>{{ Auth::user()->student->grade }}</p>
+							<p>{{ $student->grade }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Email</h3>
-							<p>{{ Auth::user()->email }}</p>
+							<p>{{ $student->user->email }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Major</h3>
-							<p>{{ Auth::user()->student->major }}</p>
+							<p>{{ $student->major }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Date of Birth</h3>
-							<p>{{ Auth::user()->student->date_of_birth }}</p>
+							<p>{{ $student->date_of_birth }}</p>
 						</div>
 						<div class="flex flex-col gap-1">
 							<h3 class="text-[#4A5B92] font-semibold">Gender</h3>
-							<p>{{ ucfirst(Auth::user()->student->gender) }}</p>
+							<p>{{ ucfirst($student->gender) }}</p>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>

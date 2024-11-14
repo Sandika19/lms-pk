@@ -1,6 +1,14 @@
 @extends('dashboard.user')
 
 @section('content')
+	@if (session()->has('create.class.success'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				successAlert("{{ session('create.class.success') }}")
+			})
+		</script>
+	@endif
+
 	{{-- Jumbotron --}}
 	<div id="jumbotron" class="w-full h-[40vh] flex items-center justify-center">
 		<div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
@@ -12,27 +20,38 @@
 	</div>
 
 	{{-- Content --}}
-	<div class="max-w-[1000px] w-full h-full mx-auto px-5 pb-10">
+	<div class="max-w-[1000px] px-5 w-full h-full mx-auto pb-10">
 		{{-- My Classes --}}
 		<div class="mt-10">
-			<h2 class="text-3xl font-semibold mb-4">My Classes</h2>
+			<h2 class="text-3xl mb-4 font-bold">My Class</h2>
+			<hr class="h-0.5 w-full bg-black mb-9">
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-between gap-4 gap-y-6">
-				<a href="">
-					<div
-						class="p-4 border-2 rounded-md border-black border-opacity-20 shadow hover:scale-[1.05] active:scale-90 transition duration-200">
-						<div class="w-full h-[150px] rounded overflow-hidden">
-							<img src="{{ asset('img/tes-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-						</div>
-						<h3 class="text-2xl font-semibold mt-5">Heading in HTML</h3>
-						<h5 class="text-sm mb-3">Web Programming</h5>
-						<div class="flex items-center justify-start gap-2">
-							<div class="w-[25px] h-[25px] bg-[#D4DDF9] rounded-full flex items-center justify-center">
-								<i class="fa-solid fa-book-open text-[13px] text-[#4A5B92]"></i>
+				<div class="p-4 flex flex-col items-center">
+					<p class="text-sm mb-3 font-semibold">Create New Class</p>
+					<a href="/teacher/classes/create-class"
+						class="py-3 px-12 bg-[#4A5B92] hover:bg-[#3f4d7c] text-xl font-bold rounded-md text-white">Create
+						Class</a>
+				</div>
+
+				@foreach ($classes as $class)
+					<a href="/teacher/classes/{{ $class->id }}">
+						<div
+							class="p-4 border-2 rounded-md border-black border-opacity-20 shadow hover:scale-[1.05] active:scale-90 transition duration-200">
+							<div class="w-full h-[150px] rounded overflow-hidden">
+								<img src="{{ Storage::url($class->thumbnail_class) }}" class="w-full h-full object-cover object-center"
+									alt="">
 							</div>
-							<p class="text-sm">10 Chapters</p>
+							<h3 class="text-2xl font-semibold mt-5">{{ $class->title }}</h3>
+							<h5 class="text-sm mb-3">{{ $class->teacher->fullname }}</h5>
+							<div class="flex items-center justify-start gap-2">
+								<div class="{{ $class->colorIconClass() }} w-[25px] h-[25px] rounded-full flex items-center justify-center">
+									<i class="fa-solid fa-book-open text-[13px]"></i>
+								</div>
+								<p class="text-sm">Kelas {{ Str::upper($class->class) }}</p>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				@endforeach
 			</div>
 		</div>
 

@@ -22,7 +22,7 @@
 	<div class="max-w-[1000px] w-full h-full mx-auto px-5 pb-10">
 		{{-- My Classes --}}
 		<div class="mt-10">
-			<h2 class="text-3xl font-semibold mb-4">My Classes</h2>
+			<h2 class="text-3xl font-bold mb-4">My Classes</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-between gap-4 gap-y-6">
 				<a href="">
 					<div
@@ -45,7 +45,7 @@
 
 		{{-- Upcoming Assignments --}}
 		<div class="mt-10">
-			<h2 class="text-3xl font-semibold mb-4">Upcoming Assignments</h2>
+			<h2 class="text-3xl font-bold mb-4">Upcoming Assignments</h2>
 
 			<div class="w-full flex flex-wrap gap-3">
 				<a href="#"

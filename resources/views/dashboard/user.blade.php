@@ -42,7 +42,7 @@
 		{{-- === Footer === --}}
 		<footer id="footer" class="lg:ml-[300px] ml-0 relative bottom-0">
 			<div class="w-full p-4 bg-[#4A5B92] text-center">
-				<h3 class="text-base font-normal text-white">copyright @ 2024 by kelompok 4 LMS | all rights reserved!</h3>
+				<h3 class="text-base font-normal text-white">© 2024 LMS SMKN 46 Jakarta | All Rights Reserved.</h3>
 			</div>
 		</footer>
 		{{-- != Footer =! --}}
