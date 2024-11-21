@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset('font/css/all.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/form.css') }}"> --}}
 
     @vite('resources/css/app.css')
 </head>
@@ -21,5 +22,7 @@
 
         @yield('content')
 
+
+{{-- <script src="{{ asset('js/form.js') }}"></script> --}}
 </body>
 </html>

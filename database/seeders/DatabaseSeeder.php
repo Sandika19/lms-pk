@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,16 +29,24 @@ class DatabaseSeeder extends Seeder
                 'username' => 'guru',
                 'email' => 'guru@lms.com',
                 'password' => bcrypt('password'),
-                'role' => 'guru',
+                'role' => 'teacher',
             ],
             [
                 'name' => 'siswa',
                 'username' => 'siswa',
                 'email' => 'siswa@lms.com',
                 'password' => bcrypt('password'),
-                'role' => 'user',
+                'role' => 'student',
             ],
         ]);
-        
+
+        // Student::create([
+        //     'user_id' => 3, // Misalnya, ID pengguna yang sudah ada
+        //     'fullname' => 'John Doe',
+        //     'grade' => '10',
+        //     'major' => 'PPLG',
+        //     'date_of_birth' => '2005-05-15', // Format tanggal: YYYY-MM-DD
+        //     'gender' => 'Male',
+        // ]);
     }
 }

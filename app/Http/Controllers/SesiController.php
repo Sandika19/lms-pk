@@ -2,13 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SesiController extends Controller
 {
     function index(){
-        return view('login');
+        return view('login', [
+            'title' => 'Login'
+        ]);
+    }
+
+    function formRegister(){
+        return view('register');
+    }
+
+    function submitRegister(Request $request){
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        // dd($user);
+        return redirect()->route('login');
+
     }
 
     function login(Request $request){
@@ -27,10 +46,10 @@ class SesiController extends Controller
         if(Auth::attempt($infologin)){
             if(Auth::user()->role == 'admin'){
                 return redirect('dashboard/admin');
-            }elseif(Auth::user()->role == 'user'){
-                return redirect('dashboard/siswa');
-            }elseif(Auth::user()->role == 'guru'){
-                return redirect('dashboard/guru');
+            }elseif(Auth::user()->role == 'student'){
+                return redirect('home');
+            }elseif(Auth::user()->role == 'teacher'){
+                return redirect('teacher/home');
             }
         }else{
             return redirect('/login')->withErrors('Username dan password yang dimasukkan tidak sesuai')->withInput();

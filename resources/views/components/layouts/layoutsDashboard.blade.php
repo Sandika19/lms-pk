@@ -15,16 +15,11 @@
         @section('nav')
         <div id="navbar-left" class="flex items-center transition-all duration-300">
             <button class="text-2xl px-4 cursor-pointer text-slate-600" onclick="toggleSidebar()">☰</button>
-            <a class="navbar-item text-lg">Ripple UI</a>
-        </div>
-        <div class="navbar-right flex space-x-4">
-            <a href="#" class="navbar-item text-lg">Home</a>
-            <a href="#" class="navbar-item text-lg">About</a>
-            <a href="#" class="navbar-item text-lg">Contact</a>
+            <a class="navbar-item text-lg font-semibold text-slate-500">LMS</a>
         </div>
         @endsection
     </x-navbar>
-    <x-sidebar></x-sidebar>
+    <x-sidebar>{{ $title }}</x-sidebar>
 
 
 

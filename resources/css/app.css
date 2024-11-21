@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+aside,
+main,
+footer {
+    @apply transition-all ease-in-out duration-[400ms];
+}
+
+#jumbotron {
+    background-image: url("https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    @apply bg-center bg-cover;
+}
+
+/* === Toggle Sidebar === */
+.toggle-sidebar #sidebar {
+    @apply lg:left-[-300px] left-0;
+}
+
+.toggle-sidebar #main,
+.toggle-sidebar #footer {
+    @apply ml-0;
+}
+/* != Toggle Sidebar =! */
+
+/* === Profile === */
+.profile-active {
+    @apply bg-[#4A5B92] text-white;
+}
+
+.profile-active + div {
+    @apply opacity-100 scale-100;
+}
+/* != Profile =! */
+
+/* == Nav Link Sidebar == */
+.nav-link-sidebar {
+    @apply flex items-center justify-start w-full pl-7 py-3 gap-4 hover:border-r-[5px] border-[#4A5B92] hover:bg-[#A9BBF4] hover:bg-opacity-[50%];
+}
+
+.nav-link-active {
+    @apply bg-[#A9BBF4] bg-opacity-50 border-r-[5px] border-[#4a5b92];
+}
+/* != Nav Link Sidebar =! */

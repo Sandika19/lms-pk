@@ -16,13 +16,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'password',
-        'role'
-    ];
+    protected $guarded = ['id'];
+
+    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,5 +41,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function getProfileDefault() {
+        return '/storage/student-profile/profile-user-default.png';
     }
 }
