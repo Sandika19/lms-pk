@@ -23,6 +23,15 @@ class TeacherController extends Controller
       ]);
    }
 
+   public function showClasses()
+   {
+      $class = Classroom::where("teacher_id", Auth::user()->teacher->id)->get();
+      return view("teacher.classes", [
+         "title" => "Classes",
+         "classes" => $class,
+      ]);
+   }
+
    public function profile()
    {
       $user = Auth::user()->id;

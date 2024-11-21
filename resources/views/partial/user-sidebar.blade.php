@@ -68,7 +68,7 @@
 			</div>
 			<div class="w-full">
 				<a href="/teacher/classes"
-					class="nav-link-sidebar {{ request()->is('/teacher/classes') ? 'nav-link-active' : '' }}">
+					class="nav-link-sidebar {{ request()->is('teacher/classes*') ? 'nav-link-active' : '' }}">
 					<div class="w-[30px] h-[30px] flex items-center justify-center">
 						<i class="fa-solid fa-graduation-cap text-xl"></i>
 					</div>

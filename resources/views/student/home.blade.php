@@ -1,5 +1,4 @@
 @extends('dashboard.user')
-
 @section('content')
 	@if (session()->has('complete.profile'))
 		<script>

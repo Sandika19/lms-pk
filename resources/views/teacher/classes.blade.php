@@ -1,38 +1,19 @@
 @extends('dashboard.user')
-
 @section('content')
-	@if (session()->has('create.class.success'))
+	@if (session()->has('delete.class'))
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
-				successAlert("{{ session('create.class.success') }}")
+				successAlert("{{ session('delete.class') }}")
 			})
 		</script>
 	@endif
 
-	{{-- Jumbotron --}}
-	<div id="jumbotron" class="w-full h-[40vh] flex items-center justify-center">
-		<div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
-			<p
-				class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
-				Welcome,</br>{{ $teacher->fullname ?? 'Teacher' }}
-			</p>
-		</div>
-	</div>
-
-	{{-- Content --}}
-	<div class="max-w-[1000px] px-5 w-full h-full mx-auto pb-10">
+	<div class="max-w-[1000px] px-5 w-full h-full mx-auto pb-14">
 		{{-- My Classes --}}
-		<div class="mt-10">
+		<div class="my-10">
 			<h2 class="text-3xl mb-4 font-bold">My Class</h2>
 			<hr class="h-0.5 w-full bg-black mb-9">
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-between gap-4 gap-y-6">
-				<div class="p-4 flex flex-col items-center">
-					<p class="text-sm mb-3 font-semibold">Create New Class</p>
-					<a href="/teacher/classes/create-class"
-						class="py-3 px-12 bg-[#4A5B92] hover:bg-[#3f4d7c] text-xl font-bold rounded-md text-white">Create
-						Class</a>
-				</div>
-
 				@foreach ($classes as $class)
 					<a href="{{ route('show.classwork', $class->id) }}">
 						<div
@@ -54,9 +35,5 @@
 				@endforeach
 			</div>
 		</div>
-
-		{{-- == Calendar == --}}
-		@include('partial.calendar')
-		{{-- != Calendar =! --}}
 	</div>
 @endsection

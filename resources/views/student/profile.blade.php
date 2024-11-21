@@ -9,7 +9,7 @@
 		</script>
 	@endif
 
-	<div class="p-6 mb-10">
+	<div class="sm:p-6 p-4 mb-8">
 		<div class="max-w-5xl w-full bg-white mx-auto rounded-md">
 			<div class="sm:py-10 py-8">
 				<h2 class="text-3xl font-bold mb-10 text-center">Your Profile</h2>

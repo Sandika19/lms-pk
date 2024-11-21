@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -52,6 +53,15 @@ class DatabaseSeeder extends Seeder
          "nip" => "123131313",
          "date_of_birth" => "2005-05-15", // Format tanggal: YYYY-MM-DD
          "gender" => "Male",
+      ]);
+
+      Classroom::create([
+         "teacher_id" => 1,
+         "title" => "HTML & CSS",
+         "class" => "xi",
+         "thumbnail_class" => "thumbnail-class/tes1.jpg",
+         "instructions" =>
+            "Pelajari materi HTML dan CSS: Memahami teori dasar HTML dan CSS serta bagaimana keduanya digunakan untuk membuat dan mempercantik halaman web.Saksikan video pembelajaran: Menonton video tutorial atau penjelasan terkait konsep HTML dan CSS, seperti cara membuat struktur HTML atau menggunakan CSS untuk styling.Pelajari semua materinya: Memastikan setiap bagian materi yang disediakan, baik teori maupun praktik, dipelajari dengan teliti.",
       ]);
    }
 }

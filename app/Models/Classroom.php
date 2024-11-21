@@ -17,6 +17,11 @@ class Classroom extends Model
       return $this->belongsTo(Teacher::class);
    }
 
+   public function materials()
+   {
+      return $this->hasMany(Material::class);
+   }
+
    public function colorIconClass()
    {
       $color = match ($this->class) {
@@ -27,5 +32,17 @@ class Classroom extends Model
       };
 
       return $color;
+   }
+
+   public function classToNumber()
+   {
+      $classNumber = match ($this->class) {
+         "x" => "10",
+         "xi" => "11",
+         "xii" => "12",
+         default => "",
+      };
+
+      return $classNumber;
    }
 }

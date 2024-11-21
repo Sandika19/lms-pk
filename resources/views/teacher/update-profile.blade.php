@@ -1,7 +1,7 @@
 @extends('dashboard.user')
 {{-- @dd($teacher) --}}
 @section('content')
-	<div class="p-6 mb-10">
+	<div class="sm:p-6 p-4 mb-8">
 		<div class="max-w-5xl w-full bg-white mx-auto rounded-md">
 			<div class="pt-7">
 				<h2 class="text-3xl font-bold mb-10 text-center">Update Profile</h2>
@@ -81,8 +81,7 @@
 						</div>
 
 						<div class="flex flex-col justify-center gap-3 relative">
-							<label class="px-3 font-medium text-[#414141] text-opacity-50" for="profile_picture">Profile Picture<span
-									class="text-red-500">*</span></label>
+							<label class="px-3 font-medium text-[#414141] text-opacity-50" for="profile_picture">Profile Picture</label>
 							<input id="profile_picture" name="profile_picture" type="file"
 								class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md">
 							@error('profile_picture')
