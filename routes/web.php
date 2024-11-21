@@ -12,6 +12,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StudentController;
 
 // Route::get('/', function () {
@@ -26,6 +27,7 @@ Route::post('/register/submit',[SesiController::class, 'submitRegister'])->name(
 Route::middleware(['guest'])->group(function(){
     Route::get('/login',[SesiController::class, 'index'])->name('login');
     Route::post('/login',[SesiController::class, 'login']);
+    Route::get('/register',[RegisterController::class,'register'])->name('tampilan.register');
 });
 
 Route::redirect('/','login');
