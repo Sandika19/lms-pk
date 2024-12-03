@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class RegisterController extends Controller
 {
     public function register(){
-        return view('login');
+        return view('register');
     }
 
 
