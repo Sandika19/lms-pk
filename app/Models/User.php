@@ -65,4 +65,16 @@ class User extends Authenticatable
 
       return $profilePicture;
    }
+
+   public function classrooms()
+   {
+      return $this->belongsToMany(Classroom::class, "enrollments")
+         ->withPivot("status")
+         ->withTimestamps();
+   }
+
+   public function submissions()
+   {
+      return $this->hasMany(Submission::class);
+   }
 }

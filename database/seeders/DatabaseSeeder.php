@@ -57,9 +57,28 @@ class DatabaseSeeder extends Seeder
 
       Classroom::create([
          "teacher_id" => 1,
-         "title" => "HTML & CSS",
+         "title" => "HTML",
+         "class" => "x",
+         "thumbnail_class" => "thumbnail-class/tes1.jpg",
+         "major" => "pplg",
+         "instructions" =>
+            "Pelajari materi lorem10 dan CSS: Memahami teori dasar HTML dan CSS serta bagaimana keduanya digunakan untuk membuat dan mempercantik halaman web.Saksikan video pembelajaran: Menonton video tutorial atau penjelasan terkait konsep HTML dan CSS, seperti cara membuat struktur HTML atau menggunakan CSS untuk styling.Pelajari semua materinya: Memastikan setiap bagian materi yang disediakan, baik teori maupun praktik, dipelajari dengan teliti.",
+      ]);
+      Classroom::create([
+         "teacher_id" => 1,
+         "title" => "CSS",
          "class" => "xi",
          "thumbnail_class" => "thumbnail-class/tes1.jpg",
+         "major" => "pplg",
+         "instructions" =>
+            "Pelajari materi HTML dan CSS: Memahami teori dasar HTML dan CSS serta bagaimana keduanya digunakan untuk membuat dan mempercantik halaman web.Saksikan video pembelajaran: Menonton video tutorial atau penjelasan terkait konsep HTML dan CSS, seperti cara membuat struktur HTML atau menggunakan CSS untuk styling.Pelajari semua materinya: Memastikan setiap bagian materi yang disediakan, baik teori maupun praktik, dipelajari dengan teliti.",
+      ]);
+      Classroom::create([
+         "teacher_id" => 1,
+         "title" => "Laravel",
+         "class" => "xii",
+         "thumbnail_class" => "thumbnail-class/tes1.jpg",
+         "major" => "pplg",
          "instructions" =>
             "Pelajari materi HTML dan CSS: Memahami teori dasar HTML dan CSS serta bagaimana keduanya digunakan untuk membuat dan mempercantik halaman web.Saksikan video pembelajaran: Menonton video tutorial atau penjelasan terkait konsep HTML dan CSS, seperti cara membuat struktur HTML atau menggunakan CSS untuk styling.Pelajari semua materinya: Memastikan setiap bagian materi yang disediakan, baik teori maupun praktik, dipelajari dengan teliti.",
       ]);

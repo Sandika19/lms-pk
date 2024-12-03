@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
+use App\Models\Enrollment;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -15,9 +17,12 @@ class StudentController extends Controller
       $user = Auth::user()->id;
       $student = Student::where("user_id", $user)->first();
 
+      $enrolledClass = Classroom::join("enrollments", "classrooms.id", "=", "enrollments.classroom_id")->where("enrollments.user_id", $user)->where("enrollments.status", "enrolled")->select("classrooms.*")->get();
+
       return view("student.home", [
          "title" => "Home",
          "student" => $student,
+         "enrolledClass" => $enrolledClass,
       ]);
    }
 
@@ -98,5 +103,28 @@ class StudentController extends Controller
 
       $student->update($validatedData);
       return redirect()->route("student.profile")->with("update.profile.success", "Your profile has been updated successfully!");
+   }
+
+   public function showClassList(Request $request)
+   {
+      $major = $request->query("major");
+      $level = $request->query("level");
+
+      $classes = Classroom::query();
+
+      if ($major) {
+         $classes->where("major", $major);
+      }
+
+      if ($level) {
+         $classes->where("class", $level);
+      }
+
+      $classes = $classes->get();
+
+      return view("student.classes", [
+         "title" => "Classes",
+         "classes" => $classes,
+      ]);
    }
 }

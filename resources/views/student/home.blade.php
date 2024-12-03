@@ -23,30 +23,35 @@
 		<div class="mt-10">
 			<h2 class="text-3xl font-bold mb-4">My Classes</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-between gap-4 gap-y-6">
-				<a href="">
-					<div
-						class="p-4 border-2 rounded-md border-black border-opacity-20 shadow hover:scale-[1.05] active:scale-90 transition duration-200">
-						<div class="w-full h-[150px] rounded overflow-hidden">
-							<img src="{{ asset('img/tes-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
-						</div>
-						<h3 class="text-2xl font-semibold mt-5">Heading in HTML</h3>
-						<h5 class="text-sm mb-3">Web Programming</h5>
-						<div class="flex items-center justify-start gap-2">
-							<div class="w-[25px] h-[25px] bg-[#D4DDF9] rounded-full flex items-center justify-center">
-								<i class="fa-solid fa-book-open text-[13px] text-[#4A5B92]"></i>
+				@forelse ($enrolledClass as $class)
+					<a href="{{ route('student.classwork', $class) }}">
+						<div
+							class="p-4 border-2 rounded-md border-black border-opacity-20 shadow hover:scale-[1.05] active:scale-90 transition duration-200">
+							<div class="w-full h-[150px] rounded overflow-hidden">
+								<img src="{{ Storage::url($class->thumbnail_class) }}" class="w-full h-full object-cover object-center"
+									alt="">
 							</div>
-							<p class="text-sm">10 Chapters</p>
+							<h3 class="text-2xl font-semibold mt-5">{{ $class->title }}</h3>
+							<h5 class="text-sm mb-3">{{ $class->teacher->fullname }}</h5>
+							<div class="flex items-center justify-start gap-2">
+								<div class="{{ $class->colorIconClass() }} w-[25px] h-[25px] rounded-full flex items-center justify-center">
+									<i class="fa-solid fa-book-open text-[13px]"></i>
+								</div>
+								<p class="text-sm">Kelas {{ Str::upper($class->class) }}</p>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				@empty
+				@endforelse
 			</div>
+
 		</div>
 
 		{{-- Upcoming Assignments --}}
 		<div class="mt-10">
 			<h2 class="text-3xl font-bold mb-4">Upcoming Assignments</h2>
 
-			<div class="w-full flex flex-wrap gap-3">
+			{{-- <div class="w-full flex flex-wrap gap-3">
 				<a href="#"
 					class="w-full sm:h-[100px] h-[80px] flex items-center justify-start px-[20px] sm:px-[30px] gap-4 border-2 border-black border-opacity-20 shadow rounded-md hover:bg-slate-300 transition">
 					<div
@@ -60,7 +65,7 @@
 						<p class="sm:text-base text-sm">Senin, 14 Oktober, 23.59</p>
 					</div>
 				</a>
-			</div>
+			</div> --}}
 
 		</div>
 

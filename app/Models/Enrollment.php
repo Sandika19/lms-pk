@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class Enrollment extends Model
 {
    protected $guarded = ["id"];
 
@@ -13,8 +13,8 @@ class Material extends Model
       return $this->belongsTo(Classroom::class);
    }
 
-   public function submissions()
+   public function user()
    {
-      return $this->hasMany(Submission::class);
+      return $this->belongsTo(User::class);
    }
 }
