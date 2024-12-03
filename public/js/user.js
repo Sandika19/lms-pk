@@ -149,3 +149,48 @@ if (addContentButton && dropdown) {
    });
 }
 // != ADD CONTENT BUTTON =!
+
+// == FOOTER ==
+const footerSection = document.getElementById("footer");
+
+function adjustFooterPosition() {
+    // Memeriksa apakah scroll bar muncul
+    if (document.body.scrollHeight <= window.innerHeight) {
+        // Jika tidak ada scrollbar, buat footer tetap di bawah
+        footerSection.classList.add("sticky-at-bottom");
+    } else {
+        // Jika ada scrollbar, hapus sticky class
+        footerSection.classList.remove("sticky-at-bottom");
+    }
+}
+
+// Panggil fungsi saat halaman dimuat dan saat ukuran jendela berubah
+window.addEventListener('load', adjustFooterPosition);
+window.addEventListener('resize', adjustFooterPosition);
+// == FOOTER =!
+
+// == STUDENT CLASSES ==
+const majorSelect = document.getElementById("major");
+const radioButtons = document.querySelectorAll("[name='level']");
+
+if (majorSelect) {
+   majorSelect.addEventListener("change", (e) => {
+      const selectedValue = e.target.value;
+      if (selectedValue) {
+         window.location.href = `/classes?major=${selectedValue}`;
+      }
+   });
+
+   radioButtons.forEach((radio) => {
+      radio.addEventListener("change", () => {
+         const level = radio.value;
+
+         const params = new URLSearchParams(window.location.search);
+
+         params.set("level", level);
+
+         window.location.href = `${window.location.pathname}?${params.toString()}`;
+      });
+   });
+}
+// != STUDENT CLASSES =!

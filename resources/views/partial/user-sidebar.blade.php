@@ -32,7 +32,7 @@
 				</a>
 			</div>
 			<div class="w-full">
-				<a href="" class="nav-link-sidebar {{ request()->is('classes') ? 'nav-link-active' : '' }}">
+				<a href="/classes" class="nav-link-sidebar {{ request()->is('classes*') ? 'nav-link-active' : '' }}">
 					<div class="w-[30px] h-[30px] flex items-center justify-center">
 						<i class="fa-solid fa-graduation-cap text-xl"></i>
 					</div>

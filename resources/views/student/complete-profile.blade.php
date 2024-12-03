@@ -61,7 +61,7 @@
 							<div class="bg-[#e8e8e8] w-full rounded-md relative overflow-hidden">
 								<i
 									class="fa-solid fa-sort-down absolute right-[12px] text-[#414141] text-opacity-50 top-1/2 translate-y-[-70%]"></i>
-								<select name="major" id="major" required
+								<select name="major" required
 									class="w-full py-4 pl-3 pr-7 appearance-none bg-transparent outline-none text-[#414141] text-opacity-50 overflow-hidden text-ellipsis">
 									<option value="" disabled selected>Select your major</option>
 									<option value="pplg">PENGEMBANGAN PERANGKAT LUNAK DAN GIM</option>
@@ -112,8 +112,7 @@
 					</div>
 
 					<div class="flex flex-col justify-center gap-3 mt-7 text-xl relative">
-						<label class="px-3 font-medium text-[#414141] text-opacity-50" for="profile_picture">Profile Picture<span
-								class="text-red-500">*</span></label>
+						<label class="px-3 font-medium text-[#414141] text-opacity-50" for="profile_picture">Profile Picture</label>
 						<input id="profile_picture" name="profile_picture" type="file"
 							class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md">
 						@error('profile_picture')

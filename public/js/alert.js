@@ -37,6 +37,15 @@ function noClassAlert(text) {
    });
 }
 
+// Already Enrolled
+function rejectAlert(text) {
+   Swal.fire({
+      title: "Oops...",
+      text,
+      icon: "error",
+   });
+}
+
 // Confirmation Update Student Profile
 const updateProfileForm = document.getElementById("update-profile-form");
 if (updateProfileForm) {
@@ -165,5 +174,29 @@ if (updateMaterialForm) {
       text: "Please confirm if you wish to update the material. The changes will be saved permanently.",
       confirmButtonText: "Update",
       element: updateMaterialForm,
+   });
+}
+
+// Confirmation Enrollment Class For Student
+const enrollForm = document.querySelectorAll(".enroll-form");
+if (enrollForm) {
+   enrollForm.forEach((enroll) => {
+      warningAlert({
+         title: "Confirm Enrollment",
+         text: "Are you sure you want to enroll in this class? This action cannot be undone.",
+         confirmButtonText: "Enroll",
+         element: enroll,
+      });
+   });
+}
+
+// Confirmation Submit Assignment Form
+const studentAssignmentForm = document.getElementById("student-assignment-form");
+if (studentAssignmentForm) {
+   warningAlert({
+      title: "Submit Assignment",
+      text: "Are you sure you want to submit this assignment? Once submitted, you will no longer be able to make changes.",
+      confirmButtonText: "Submit",
+      element: studentAssignmentForm,
    });
 }

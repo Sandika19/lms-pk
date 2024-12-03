@@ -1,8 +1,9 @@
 @extends('dashboard.user')
+
 @section('content')
 	<div class="p-6 mb-10">
 		<div class="max-w-5xl w-full mx-auto ">
-			<div class="">
+			<div>
 				<h2 class="text-3xl font-bold mb-4">{{ $title ?? 'Upload Material' }}</h2>
 				<hr class="h-0.5 w-full bg-black mb-10">
 
@@ -33,27 +34,46 @@
 							@enderror
 						</div>
 
+						@if (Str::contains(request()->url(), 'add-assignment'))
+							<div class="flex flex-col justify-center gap-3 relative">
+								<label class="px-3 font-medium text-[#414141] text-opacity-50" for="deadline">Deadline</label>
+								<input id="deadline" name="deadline" type="datetime-local"
+									class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md">
+								@error('deadline')
+									<div class="text-red-600 text-xs absolute bottom-[-20px]">
+										{{ $message }}
+									</div>
+								@enderror
+							</div>
+						@endif
+
 						<div class="flex flex-col justify-center gap-3 relative">
-							<label class="px-3 font-medium text-[#414141] text-opacity-50" for="file_path">Select File<span
-									class="text-red-500">*</span></label>
-							@if (Str::contains(request()->url(), 'add-material-file'))
+							@if (Str::contains(request()->url(), 'add-material-video'))
+								<label class="px-3 font-medium text-[#414141] text-opacity-50" for="video_link">Video Link<span
+										class="text-red-500">*</span></label>
+								<input id="video_link" name="video_link"
+									class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md"
+									placeholder="Type video link for material here..." required>
+								@error('video_link')
+									<div class="text-red-600 text-xs absolute bottom-[-20px]">
+										{{ $message }}
+									</div>
+								@enderror
+							@else
+								<label class="px-3 font-medium text-[#414141] text-opacity-50" for="file_path">Select File<span
+										class="text-red-500">*</span></label>
 								<input id="file_path" name="file_path" type="file" accept=".pdf, .ppt, .pptx"
 									class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md" required>
-							@else
-								<input id="file_path" name="file_path" type="file" accept=".mp4, .mkv"
-									class="w-full py-4 px-3 text-[#414141] text-opacity-50 bg-[#e8e8e8] focus:outline-none rounded-md" required>
+								@error('file_path')
+									<div class="text-red-600 text-xs absolute bottom-[-20px]">
+										{{ $message }}
+									</div>
+								@enderror
 							@endif
-
-							@error('file_path')
-								<div class="text-red-600 text-xs absolute bottom-[-20px]">
-									{{ $message }}
-								</div>
-							@enderror
 						</div>
-
-
 					</div>
 
+					<input type="text" class="hidden" name="material_type" value="{{ request()->path() }}">
 					<button type="submit"
 						class="w-full py-4 bg-[#4A5B92] hover:bg-[#3f4e7c] text-xl font-semibold mt-10 text-white rounded-md">Upload
 						Material</button>

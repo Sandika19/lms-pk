@@ -6,6 +6,7 @@
 				successAlert("{{ session('update.class.success') }}")
 			})
 		</script>
+		{{ session()->forget('update.class.success') }}
 	@endif
 	@if (session()->has('add.material.success'))
 		<script>
@@ -13,6 +14,7 @@
 				successAlert("{{ session('add.material.success') }}")
 			})
 		</script>
+		{{ session()->forget('add.material.success') }}
 	@endif
 	@if (session()->has('delete.material'))
 		<script>
@@ -20,6 +22,7 @@
 				successAlert("{{ session('delete.material') }}")
 			})
 		</script>
+		{{ session()->forget('delete.material') }}
 	@endif
 	@if (session()->has('update.material.success'))
 		<script>
@@ -27,6 +30,7 @@
 				successAlert("{{ session('update.material.success') }}")
 			})
 		</script>
+		{{ session()->forget('update.material.success') }}
 	@endif
 
 	<div class="sm:p-6 p-4 mb-8">
@@ -71,11 +75,13 @@
 								class="bg-[#A9BBF4] hover:bg-[#92a1d2] sm:w-[190px] sm:h-[50px] w-[130px] h-[40px] rounded-md">Add
 								Content</button>
 							<div id="dropdownAddContent"
-								class="invisible flex sm:w-[200px] w-[150px] bg-white text-base font-medium text-[#757575] flex-col shadow-lg absolute bottom-[-100px]">
+								class="invisible flex sm:w-[200px] w-[150px] bg-white text-base font-medium text-[#757575] flex-col shadow-lg absolute bottom-[-150px] z-20">
 								<a href="{{ route('show.add.material.file', $classroom->id) }}"
 									class="py-3 px-4 border-b hover:bg-slate-50">File</a>
 								<a href="{{ route('show.add.material.video', $classroom->id) }}"
 									class="py-3 px-4 border-t hover:bg-slate-50">Video</a>
+								<a href="{{ route('show.add.assignment', $classroom->id) }}"
+									class="py-3 px-4 border-t hover:bg-slate-50">Assignment</a>
 							</div>
 						</div>
 						<a href="{{ route('show.update.class', $classroom->id) }}"
@@ -84,20 +90,18 @@
 					</div>
 
 					{{-- Material --}}
-					<div class="flex flex-col gap-6">
-						@php
-							$videoCount = 1;
-							$fileCount = 1;
-						@endphp
-						@forelse ($materials as $index => $material)
-							@if (in_array($material->type, ['mp4', 'mkv']))
-								<div class="w-full bg-[#e8e8e8] py-4 sm:px-10 px-4 flex items-center justify-between rounded-md">
-									<div class="flex items-center gap-x-6">
-										<i class="fa-solid fa-play text-4xl text-[#4A5B92]"></i>
-										<p class="font-medium text-lg">Video {{ $videoCount }} - {{ $material->title }}</p>
-										<?php $videoCount++; ?>
-									</div>
-									<div class="flex gap-2 sm:flex-row flex-col">
+					<div class="flex flex-col gap-4">
+						@foreach ($materials as $index => $material)
+							@if ($material->material_type == 'video')
+								<div class="w-full bg-[#e8e8e8] flex items-center justify-between rounded-md overflow-hidden">
+									<a href="{{ route('show.material', ['material' => $material, 'classroom' => $classroom]) }}"
+										class="block w-full py-4 h-full">
+										<div class="flex items-center gap-x-6 sm:pl-10 pl-4">
+											<i class="fa-solid fa-play text-4xl text-[#4A5B92]"></i>
+											<p class="font-medium text-lg">{{ $material->title }}</p>
+										</div>
+									</a>
+									<div class="flex gap-2 sm:flex-row flex-col py-4 sm:pr-10 pr-4">
 										<a href="{{ route('show.update.video.material', ['classroom' => $classroom, 'material' => $material]) }}"
 											class="flex items-center justify-center w-[110px] h-[40px] bg-[#A9BBF4] hover:bg-[#92a1d2] font-bold text-lg rounded-md">Update</a>
 										<form action="{{ route('delete.material', ['classroom' => $classroom, 'material' => $material]) }}"
@@ -109,14 +113,16 @@
 										</form>
 									</div>
 								</div>
-							@else
-								<div class="w-full bg-[#e8e8e8] py-4 sm:px-10 px-4 flex items-center justify-between rounded-md">
-									<div class="flex items-center gap-x-6">
-										<i class="fa-regular fa-file text-4xl text-[#4A5B92]"></i>
-										<p class="font-medium text-lg">Materi {{ $fileCount }} - {{ $material->title }}</p>
-										<?php $fileCount++; ?>
-									</div>
-									<div class="flex gap-2 sm:flex-row flex-col">
+							@elseif ($material->material_type == 'file')
+								<div class="w-full bg-[#e8e8e8] flex items-center justify-between rounded-md overflow-hidden">
+									<a href="{{ route('show.material', ['material' => $material, 'classroom' => $classroom]) }}"
+										class="block w-full py-4 h-full">
+										<div class="flex items-center gap-x-6  sm:pl-10 pl-4">
+											<i class="fa-regular fa-file text-4xl text-[#4A5B92]"></i>
+											<p class="font-medium text-lg">{{ $material->title }}</p>
+										</div>
+									</a>
+									<div class="flex gap-2 sm:flex-row flex-col py-4  sm:pr-10 pr-4">
 										<a href="{{ route('show.update.file.material', ['classroom' => $classroom, 'material' => $material]) }}"
 											class="flex items-center justify-center w-[110px] h-[40px] bg-[#A9BBF4] hover:bg-[#92a1d2] font-bold text-lg rounded-md">Update</a>
 										<form action="{{ route('delete.material', ['classroom' => $classroom, 'material' => $material]) }}"
@@ -128,12 +134,30 @@
 										</form>
 									</div>
 								</div>
+							@else
+								<div class="w-full bg-[#e8e8e8] flex items-center justify-between rounded-md overflow-hidden">
+									<a href="{{ route('show.material', ['material' => $material, 'classroom' => $classroom]) }}"
+										class="block w-full py-4 h-full">
+										<div class="flex items-center gap-x-6  sm:pl-10 pl-4">
+											<i class="fa-regular fa-file-lines text-4xl text-[#4A5B92]"></i>
+											<p class="font-medium text-lg">{{ $material->title }}</p>
+										</div>
+									</a>
+									<div class="flex gap-2 sm:flex-row flex-col py-4  sm:pr-10 pr-4">
+										<a href="{{ route('show.update.assignment', ['classroom' => $classroom, 'material' => $material]) }}"
+											class="flex items-center justify-center w-[110px] h-[40px] bg-[#A9BBF4] hover:bg-[#92a1d2] font-bold text-lg rounded-md">Update</a>
+										<form action="{{ route('delete.material', ['classroom' => $classroom, 'material' => $material]) }}"
+											method="post" class="delete-material-form">
+											@csrf
+											@method('delete')
+											<button
+												class="w-[110px] h-[40px] bg-[#4A5B92] hover:bg-[#435284] font-bold text-lg rounded-md text-white">Delete</button>
+										</form>
+									</div>
+								</div>
 							@endif
-						@empty
-							<div class="w-full bg-[#e8e8e8] py-4 sm:px-10 px-4 text-center rounded-md">
-								No materials have beed added
-							</div>
-						@endforelse
+						@endforeach
+
 
 
 					</div>
