@@ -1,5 +1,18 @@
-@extends('dashboard.student')
+@php
+    $herosectionPath = public_path('herosection');
+    $defaultImage = 'img/image1.jpg';
+    $backgroundImage = $defaultImage;
 
+    if (File::exists($herosectionPath)) {
+        $files = File::files($herosectionPath);
+        if (count($files) > 0) {
+            $latestFile = end($files);
+            $backgroundImage = 'herosection/' . $latestFile->getFilename();
+        }
+    }
+@endphp
+
+@extends('dashboard.user')
 @section('content')
 	@if (session()->has('complete.profile'))
 		<script>
@@ -8,24 +21,25 @@
 			})
 		</script>
 	@endif
-	{{-- Jumbotron --}}
-	<div id="jumbotron" class="w-full h-[40vh] flex items-center justify-center">
-		<div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
-			<p
-				class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
-				Welcome,</br>{{ $student->fullname ?? 'Student' }}
-			</p>
-		</div>
-	</div>
+	<div id="jumbotron" 
+    class="w-full h-[40vh] flex items-center justify-center" 
+    style="background-image: url('{{ asset($backgroundImage) }}'); background-size: cover; background-position: center;">
+    <div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
+        <p class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
+            Welcome,</br>{{ $student->fullname ?? 'Student' }}
+        </p>
+    </div>
+</div>
 
 	{{-- Content --}}
 	<div class="max-w-[1000px] w-full h-full mx-auto px-5 pb-10">
 		{{-- My Classes --}}
 		<div class="mt-10">
-			<h2 class="text-3xl font-semibold mb-4">My Classes</h2>
+			<h2 class="text-3xl font-bold mb-4">My Classes</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-between gap-4 gap-y-6">
-				<a href="#">
-					<div class="p-4 border-2 rounded-md border-black border-opacity-20 shadow">
+				<a href="">
+					<div
+						class="p-4 border-2 rounded-md border-black border-opacity-20 shadow hover:scale-[1.05] active:scale-90 transition duration-200">
 						<div class="w-full h-[150px] rounded overflow-hidden">
 							<img src="{{ asset('img/tes-1.jpg') }}" class="w-full h-full object-cover object-center" alt="">
 						</div>
@@ -44,11 +58,11 @@
 
 		{{-- Upcoming Assignments --}}
 		<div class="mt-10">
-			<h2 class="text-3xl font-semibold mb-4">Upcoming Assignments</h2>
+			<h2 class="text-3xl font-bold mb-4">Upcoming Assignments</h2>
 
 			<div class="w-full flex flex-wrap gap-3">
 				<a href="#"
-					class="w-full sm:h-[100px] h-[80px] flex items-center justify-start px-[20px] sm:px-[30px] gap-4 border-2 border-black border-opacity-20 shadow rounded-md">
+					class="w-full sm:h-[100px] h-[80px] flex items-center justify-start px-[20px] sm:px-[30px] gap-4 border-2 border-black border-opacity-20 shadow rounded-md hover:bg-slate-300 transition">
 					<div
 						class="flex justify-center items-center min-w-[40px] min-h-[40px] w-[40px] sm:min-w-[50px] sm:w-[50px] h-[40px] sm:min-h-[50px] sm:h-[50px] bg-[#D4DDF9] rounded-full">
 						<i class="fa-regular fa-file text-[#4A5B92] sm:text-[30px] text-[20px]"></i>

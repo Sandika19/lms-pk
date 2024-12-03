@@ -1,7 +1,7 @@
 @extends('components.layouts.layoutsDashboard')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-8">Dashboard Content</h1>
+<h1 class="text-2xl font-bold mb-8">User's Table</h1>
 
 <!-- Section for Cards -->
 <section class="flex flex-col md:flex-row justify-between gap-4">
@@ -38,18 +38,19 @@
 
 <!-- Section for Table -->
 <section class="mt-16">
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 text-sm rounded-lg overflow-hidden">
-            <thead class="bg-[#4A5B92] text-white rounded-t-3xl ">
+    <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+        <table class="min-w-full bg-white text-sm rounded-lg">
+            <thead class="bg-[#4A5B92] text-white">
                 <tr>
                     <th class="px-4 py-4 text-left">No</th>
                     <th class="px-4 py-4 text-left">Nama</th>
                     <th class="px-4 py-4 text-left">Username</th>
                     <th class="px-4 py-4 text-left">Email</th>
                     <th class="px-4 py-4 text-left">Role</th>
+                    
                 </tr>
             </thead>
-            <tbody class="rounded-b-lg">
+            <tbody>
                 @foreach ($users as $no => $data)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="px-4 py-4">{{ $no+1 }}</td>
@@ -57,6 +58,7 @@
                         <td class="px-4 py-4">{{ $data->username }}</td>
                         <td class="px-4 py-4">{{ $data->email }}</td>
                         <td class="px-4 py-4">{{ $data->role }}</td>
+
                     </tr>
                 @endforeach
             </tbody>

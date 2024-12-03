@@ -3,6 +3,7 @@
 @section('content')
 <!-- Register Card -->
 <form id="register-card" class="card-container flex justify-center" action="{{ route('registrasi.submit') }}" method="post">
+    
     @csrf
     <div class="card mt-24 bg-white/50 rounded-3xl min-w-[400px] transition-transform duration-500">
         <div class="card-body">
@@ -34,7 +35,7 @@
             <button type="submit" class="btn hover:bg-[#4A5B92] hover:text-white">
                 <p class="font-semibold">Register</p>
             </button>
-            <p class="text-center text-slate-500">Have an account? <a class="hover:font-semibold text-slate-600 cursor-pointer" onclick="showLogin()">Please Login</a></p>
+            <p class="text-center text-slate-500">Have an account? <a href="{{ route('login') }}" class="hover:font-semibold text-slate-600 cursor-pointer" onclick="showLogin()">Please Login</a></p>
         </div>
     </div>
 </form>

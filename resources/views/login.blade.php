@@ -33,7 +33,7 @@
                     <button type="submit" class="btn hover:bg-[#4A5B92] hover:text-white">
                         <p class="font-semibold">Login</p>
                     </button>
-                    <p class="text-center text-slate-500">Don't have an account? <a href="{{ route('tampilan.register') }}" hover:font-semibold text-slate-600 cursor-pointer" onclick="showRegister()">Register</a></p>
+                    <p class="text-center text-slate-500">Don't have an account? <a href="{{ route('tampilan.register') }}" class="hover:font-semibold text-slate-600 cursor-pointer" onclick="showRegister()">Register</a></p>
                 </div>
             </div>
         </form>

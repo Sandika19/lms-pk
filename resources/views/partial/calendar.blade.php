@@ -1,6 +1,6 @@
 {{-- Calendar --}}
 <div class="mt-10">
-	<h2 class="text-3xl font-semibold mb-4">Calendar</h2>
+	<h2 class="text-3xl font-bold mb-4">Calendar</h2>
 
 	<div class="bg-white rounded sm:p-6 p-4 w-full border-stone-300 border-2 shadow">
 		<div class="w-full">

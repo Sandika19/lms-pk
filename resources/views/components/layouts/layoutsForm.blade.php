@@ -15,7 +15,7 @@
         
         @section('nav')
         <div class="navbar-start">
-            <i class="fa-solid fa-school"></i>
+            <img class="ms-4" src="{{ asset('img/logo-smk.png') }}" alt="Logo SMK" style="height: 40px; width: auto;">
         </div>
         @endsection
     </x-navbar>

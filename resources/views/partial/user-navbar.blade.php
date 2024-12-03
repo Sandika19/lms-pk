@@ -35,17 +35,26 @@
 				class="opacity-0 scale-0 absolute right-0 bottom-[-398px] w-[300px] bg-white border-black border-2 border-opacity-20 shadow-xl rounded-md py-5 px-6 origin-top-right z-10 transition-all">
 				<div class="flex flex-col items-center justify-center">
 					<div class="w-[130px] h-[130px] rounded-full overflow-hidden">
-						<img class="object-cover w-full h-full"
-							src="{{ optional(Auth::user()->student)->profile_picture ?? Auth::user()->getProfileDefault() }}"
+						<img class="object-cover w-full h-full" src="{{ Storage::url(Auth::user()->getUserProfile()) }}"
 							alt="profile-picture">
 					</div>
 					<h3 class="text-xl font-semibold mt-4">{{ Auth::user()->username }}</h3>
 					<p class="text-sm">{{ ucfirst(Auth::user()->role) }}</p>
-					<a
-						class="bg-[#A9BBF4] hover:bg-[#92a1d2] w-full flex items-center justify-center py-3 text-xl mt-6 font-semibold rounded"
-						href="{{ route('student.profile') }}">View Profile</a>
+
+					@can('teacher')
+						<a
+							class="bg-[#A9BBF4] hover:bg-[#92a1d2] w-full flex items-center justify-center py-3 text-xl mt-6 font-semibold rounded"
+							href="/teacher/update-profile/{{ Auth::user()->teacher->nip }}">Update Profile</a>
+					@endcan
+
+					@can('student')
+						<a
+							class="bg-[#A9BBF4] hover:bg-[#92a1d2] w-full flex items-center justify-center py-3 text-xl mt-6 font-semibold rounded"
+							href="/update-profile/{{ optional(Auth::user()->student)->nis }}">Update Profile</a>
+					@endcan
+
 					<div
-						class="bg-[#4A5B92] hover:bg-[#3f4e7c] text-white w-full flex items-center justify-center  text-xl mt-3 font-semibold rounded overflow-hidden">
+						class="bg-[#4A5B92] hover:bg-[#3f4d7c] text-white w-full flex items-center justify-center  text-xl mt-3 font-semibold rounded overflow-hidden">
 						<form action="{{ route('logout') }}" method="post" id="logout-form" class="w-full">
 							@csrf
 							<button type="submit" class="w-full py-3">Logout</button>

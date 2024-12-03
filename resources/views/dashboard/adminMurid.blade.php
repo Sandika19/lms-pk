@@ -18,11 +18,12 @@
 </section>
 
 <!-- Section for Table -->
-<a href="{{ route('siswa.tambah') }}" class="btn btn-solid-primary mt-8 mb-4 "><i class="fa-solid fa-square-plus me-2"></i>Tambah Siswa</a>
+<a href="{{ route('siswa.tambah') }}" class="btn btn-solid-primary mt-6 mb-4 "><i class="fa-solid fa-square-plus me-2"></i>Add Student</a>
+
 <section>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 text-sm rounded-lg overflow-hidden">
-            <thead class="bg-[#4A5B92] text-white rounded-t-3xl ">
+    <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+        <table class="min-w-full bg-white text-sm rounded-lg">
+            <thead class="bg-[#4A5B92] text-white">
                 <tr>
                     <th class="px-4 py-4 text-left">No</th>
                     <th class="px-4 py-4 text-left">Nama</th>
@@ -32,7 +33,7 @@
                     <th class="px-4 py-4 text-left">Action</th>
                 </tr>
             </thead>
-            <tbody class="rounded-b-lg">
+            <tbody>
                 @foreach ($users as $no => $data)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="px-4 py-4">{{ $no+1 }}</td>
@@ -40,7 +41,17 @@
                         <td class="px-4 py-4">{{ $data->username }}</td>
                         <td class="px-4 py-4">{{ $data->email }}</td>
                         <td class="px-4 py-4">{{ $data->role }}</td>
-                        <td class="px-4 py-4"><a href=""><i class="fa-solid fa-user-pen fa-lg  me-5"></i></a>|<a href=""><i class="fa-solid fa-trash-can fa-lg ms-5"></i></a></td>
+                        <td class="px-4 py-4 flex items-center space-x-4">
+                            <a href="{{ route('students.edit', $data->id) }}" class="text-blue-500 hover:text-blue-700">
+                                <i class="fa-solid fa-user-pen fa-lg"></i>
+                            </a>
+                            <form action="{{ route('students.delete', $data->id) }}" method="post" class="inline">
+                                @csrf
+                                <button type="submit" class="text-red-500 hover:text-red-700">
+                                    <i class="fa-solid fa-trash-can fa-lg"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
