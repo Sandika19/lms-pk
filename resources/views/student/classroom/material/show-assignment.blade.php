@@ -1,6 +1,13 @@
 @extends('dashboard.user')
-{{-- @dd($material->file_path) --}}
+{{-- @dd($assignment->count()) --}}
 @section('content')
+	@if (session()->has('assignment.success'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				successAlert("{{ session('assignment.success') }}")
+			})
+		</script>
+	@endif
 	<div class="p-6 mb-48">
 		<div class="max-w-5xl w-full mx-auto ">
 			<div class="pl-16 pt-3 relative">
@@ -33,7 +40,7 @@
 
 				<div class="mt-8 flex items-center justify-between ">
 					<p class="text-xl font-bold">Your Work</p>
-					<p class="font-medium text-lg text-red-500">Assigned</p>
+					<p id="isAssigned" class="font-medium text-lg text-red-500">Assigned</p>
 				</div>
 
 				<hr class="h-0.5 w-full bg-black my-5">
@@ -45,17 +52,42 @@
 						<!-- File Display -->
 						<div id="file-display" class="w-full"></div>
 
-						<!-- Add Assignment Button -->
-						<div id="file-button" class="w-full py-3 bg-[#A9BBF4] text-center rounded-md text-lg font-bold hover:bg-[#9eafe5]"
-							onclick="document.getElementById('file-input').click();">
-							+ Add Assignment
-						</div>
+						@if ($assignment)
+							<a href="{{ Storage::url($assignment->file_path) }}" class="block w-full" id="student-assignment">
+								<div class="bg-white border-2 border-[#919191] rounded-md flex items-center gap-4 px-6 py-4">
+									<div class="min-w-[40px] min-h-[40px] bg-[#D4DDF9] flex items-center justify-center rounded-full">
+										<i class="fa-regular fa-file text-xl text-[#4A5B92]"></i>
+									</div>
+									<div>
+										<p class="font-bold">{{ $assignment->file_name }}</p>
+										<p>{{ Str::upper($assignment->file_type) }}</p>
+									</div>
+								</div>
+							</a>
+							<div id="unsubmit"
+								class="cursor-pointer w-full py-3 text-center rounded-md text-lg font-bold border-2 border-[#919191] text-[#4A5B92] hover:bg-[#4A5B92] hover:text-white">
+								Unsubmit
+							</div>
+							<div id="file-button"
+								class="add-assignment cursor-pointer w-full py-3 bg-[#A9BBF4] text-center rounded-md text-lg font-bold hover:bg-[#9eafe5] hidden"
+								onclick="document.getElementById('file-input').click();">
+								+ Add Assignment
+							</div>
+						@else
+							<!-- Add Assignment Button -->
+							<div id="file-button"
+								class="cursor-pointer w-full py-3 bg-[#A9BBF4] text-center rounded-md text-lg font-bold hover:bg-[#9eafe5]"
+								onclick="document.getElementById('file-input').click();">
+								+ Add Assignment
+							</div>
+						@endif
 
 						<!-- Hidden File Input -->
-						<input type="file" id="file-input" class="hidden" onchange="handleFileChange(event)" />
+						<input type="file" id="file-input" name="file_path" class="hidden" onchange="handleFileChange(event)" />
+						<input type="text" name="isUpdate" class="hidden" value="">
 
 						<button id="submit-button" type="submit"
-							class="w-full py-3 bg-[#4A5B92] text-white text-center rounded-md text-lg font-bold hover:bg-[#48588d] hidden">
+							class="cursor-pointer w-full py-3 bg-[#4A5B92] text-white text-center rounded-md text-lg font-bold hover:bg-[#48588d] hidden">
 							Submit
 						</button>
 					</div>
@@ -65,6 +97,26 @@
 	</div>
 
 	<script>
+		const unsubmit = document.getElementById('unsubmit')
+		const addAssignment = document.querySelector('.add-assignment');
+		const studentAssignment = document.getElementById('student-assignment');
+		const isAssigned = document.getElementById('isAssigned')
+		const isUpdate = document.querySelector('[name=isUpdate]')
+
+		if (unsubmit) {
+			isAssigned.classList.remove('text-red-500')
+			isAssigned.textContent = 'Turned In'
+		}
+
+		unsubmit.addEventListener('click', (e) => {
+			isAssigned.classList.add('text-red-500');
+			isAssigned.textContent = 'Assigned'
+			isUpdate.value = 'update'
+			studentAssignment.classList.add('hidden');
+			addAssignment.classList.remove('hidden');
+			unsubmit.classList.add('hidden');
+		})
+
 		function handleFileChange(event) {
 			const file = event.target.files[0];
 			const fileDisplay = document.getElementById('file-display');

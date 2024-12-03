@@ -76,11 +76,19 @@
 				</a>
 			</div>
 			<div class="w-full">
-				<a href="/teacher/grade" class="nav-link-sidebar {{ request()->is('/teacher/grade') ? 'nav-link-active' : '' }}">
+				<a href="/teacher/grade" class="nav-link-sidebar {{ request()->is('teacher/grade*') ? 'nav-link-active' : '' }}">
 					<div class="w-[30px] h-[30px] flex items-center justify-center">
 						<img src="{{ asset('img/grade.png') }}" class="w-[22px] h-[22px]" alt="">
 					</div>
 					<p class="text-xl font-bold">Grade</p>
+				</a>
+			</div>
+			<div class="w-full">
+				<a href="/teacher/recap" class="nav-link-sidebar {{ request()->is('teacher/recap*') ? 'nav-link-active' : '' }}">
+					<div class="w-[30px] h-[30px] flex items-center justify-center">
+						<i class="fa-solid fa-folder-open text-xl"></i>
+					</div>
+					<p class="text-xl font-bold">Recap</p>
 				</a>
 			</div>
 		</div>

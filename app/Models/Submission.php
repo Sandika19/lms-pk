@@ -22,4 +22,15 @@ class Submission extends Model
    {
       return $this->belongsTo(Material::class);
    }
+
+   public function statusSubmission()
+   {
+      if ($this->score == null && $this->file_path) {
+         return "Turned In";
+      } elseif ($this->score) {
+         return "Graded";
+      } elseif ($this->score == null && $this->file_name == null) {
+         return "Assigned";
+      }
+   }
 }

@@ -76,7 +76,7 @@
 					<input type="text" class="hidden" name="material_type" value="{{ request()->path() }}">
 					<button type="submit"
 						class="w-full py-4 bg-[#4A5B92] hover:bg-[#3f4e7c] text-xl font-semibold mt-10 text-white rounded-md">Upload
-						Material</button>
+						Content</button>
 				</form>
 			</div>
 		</div>

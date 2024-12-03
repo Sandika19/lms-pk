@@ -26,7 +26,7 @@
 					<div class="w-full rounded-md relative overflow-hidden">
 						<i
 							class="fa-solid fa-sort-down absolute right-[12px] text-[#414141] text-opacity-50 top-1/2 translate-y-[-70%]"></i>
-						<select name="major" id="major"
+						<select name="major" id="major-select-class"
 							class="w-full bg-[#f5f5f5] py-4 pl-3 pr-7 appearance-none outline-none text-[#414141] text-xl font-medium text-opacity-50 overflow-hidden text-ellipsis">
 							<option value="" disabled selected>Select Major</option>
 							<option value="pplg" {{ request()->query('major') === 'pplg' ? 'selected' : '' }}>PENGEMBANGAN PERANGKAT LUNAK
@@ -105,8 +105,6 @@
 							@empty
 								<p class="text-center grid col-span-full">No class available.</p>
 							@endforelse
-
-
 						</div>
 					</div>
 

@@ -50,7 +50,7 @@
 							<div class="bg-[#e8e8e8] w-full rounded-md relative overflow-hidden">
 								<i
 									class="fa-solid fa-sort-down absolute right-[12px] text-[#414141] text-opacity-50 top-1/2 translate-y-[-70%]"></i>
-								<select name="major" id="major" required
+								<select name="major" required
 									class="w-full py-4 pl-3 pr-7 appearance-none bg-transparent outline-none text-[#414141] text-opacity-50 overflow-hidden text-ellipsis">
 									<option value="" disabled selected>Select major</option>
 									<option value="pplg">PENGEMBANGAN PERANGKAT LUNAK DAN GIM</option>

@@ -165,7 +165,7 @@ if (!isScrollbarVisible()) {
 // != FOOTER =!
 
 // == STUDENT CLASSES ==
-const majorSelect = document.getElementById("major");
+const majorSelect = document.getElementById("major-select-class");
 const radioButtons = document.querySelectorAll("[name='level']");
 
 if (majorSelect) {
@@ -179,11 +179,8 @@ if (majorSelect) {
    radioButtons.forEach((radio) => {
       radio.addEventListener("change", () => {
          const level = radio.value;
-
          const params = new URLSearchParams(window.location.search);
-
          params.set("level", level);
-
          window.location.href = `${window.location.pathname}?${params.toString()}`;
       });
    });
