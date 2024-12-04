@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset('font/css/all.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/form.css') }}"> --}}
 
     @vite('resources/css/app.css')
 </head>
@@ -14,12 +15,14 @@
         
         @section('nav')
         <div class="navbar-start">
-            <i class="fa-solid fa-school"></i>
+            <img class="ms-4" src="{{ asset('img/logo-smk.png') }}" alt="Logo SMK" style="height: 40px; width: auto;">
         </div>
         @endsection
     </x-navbar>
 
         @yield('content')
 
+
+{{-- <script src="{{ asset('js/form.js') }}"></script> --}}
 </body>
 </html>

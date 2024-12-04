@@ -1,3 +1,17 @@
+@php
+    $herosectionPath = public_path('herosection');
+    $defaultImage = 'img/image1.jpg';
+    $backgroundImage = $defaultImage;
+
+    if (File::exists($herosectionPath)) {
+        $files = File::files($herosectionPath);
+        if (count($files) > 0) {
+            $latestFile = end($files);
+            $backgroundImage = 'herosection/' . $latestFile->getFilename();
+        }
+    }
+@endphp
+
 @extends('dashboard.user')
 
 @section('content')
@@ -10,14 +24,15 @@
 	@endif
 
 	{{-- Jumbotron --}}
-	<div id="jumbotron" class="w-full h-[40vh] flex items-center justify-center">
-		<div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center ">
-			<p
-				class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
-				Welcome,</br>{{ $teacher->fullname ?? 'Teacher' }}
-			</p>
-		</div>
-	</div>
+	<div id="jumbotron" 
+    class="w-full h-[40vh] flex items-center justify-center" 
+    style="background-image: url('{{ asset($backgroundImage) }}'); background-size: cover; background-position: center;">
+    <div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
+        <p class="text-center text-white font-semibold lg:leading-[60px] sm:leading-[50px] leading-[40px] lg:text-5xl sm:text-4xl text-3xl">
+            Welcome,</br>{{ $teacher->fullname ?? 'Teacher' }}
+        </p>
+    </div>
+</div>
 
 	{{-- Content --}}
 	<div class="max-w-[1000px] px-5 w-full h-full mx-auto pb-10">

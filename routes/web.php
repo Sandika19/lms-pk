@@ -8,17 +8,24 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserAccess;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ClassroomController;
+
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\MaterialController;
+
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TeacherController;
+
 use App\Models\Submission;
 use Illuminate\Support\Facades\Storage;
+
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ClassroomController;
+
 
 Route::redirect("/", "/login");
 Route::redirect("/teacher", "/teacher/home");
@@ -32,19 +39,42 @@ Route::get("/tes", function () {
 
 // Route::get('/test',FormAuth::class);
 // // Route::get('/login',Login::class);
-// Route::get('/register',Register::class);
+Route::get('/register',[SesiController::class, 'formRegister']);
+Route::post('/register/submit',[SesiController::class, 'submitRegister'])->name('registrasi.submit');
 
-Route::middleware(["guest"])->group(function () {
-   Route::get("/login", [SesiController::class, "index"])->name("login");
-   Route::post("/login", [SesiController::class, "login"]);
+Route::middleware(['guest'])->group(function(){
+    Route::get('/login',[SesiController::class, 'index'])->name('login');
+    Route::post('/login',[SesiController::class, 'login']);
+    Route::get('/register',[RegisterController::class,'register'])->name('tampilan.register');
 });
 
-Route::middleware(["auth"])->group(function () {
-   Route::get("/admin", [AdminController::class, "index"]);
-   // Route::get('/dashboard/admin',[AdminController::class,'admin'])->middleware(UserAccess::class.':admin');
-   // Route::get('/dashboard-teacher/home',[AdminController::class,'guru'])->middleware(UserAccess::class.':guru');
-   // Route::get('/logout',[SesiController::class,'logout']);
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard/admin',[AdminController::class,'admin'])->middleware(UserAccess::class.':admin')->name('home.admin');
+
+      //Students era
+    Route::get('/dashboard/admin/students',[AdminController::class,'students'])->middleware(UserAccess::class.':admin')->name('students.admin');
+    Route::get('dashboard/admin/students/tambah',[AdminController::class,'tambahSiswa'])->name('siswa.tambah');
+    Route::post('dashboard/admin/students/submit',[AdminController::class, 'submitStudents'])->name('adminRegistStudent.submit');
+    Route::get('dashboard/admin/students/edit/{id}',[AdminController::class, 'editStudents'])->name('students.edit');
+    Route::post('dashboard/admin/students/update/{id}',[AdminController::class, 'updateStudents'])->name('students.update');
+    Route::post('dashboard/admin/students/delete/{id}',[AdminController::class, 'deleteStudents'])->name('students.delete');
+
+      //Teacher era
+    Route::get('/dashboard/admin/teacher',[AdminController::class,'teacher'])->middleware(UserAccess::class.':admin')->name('teacher.admin');
+    Route::get('dashboard/admin/teacher/add',[AdminController::class, 'addTeacherView'])->name('add.teacher');
+    Route::post('dashboard/admin/teacher/submit',[AdminController::class, 'submitTeacher'])->name('submit.teacher');
+    Route::get('dashboard/admin/teacher/edit/{id}',[AdminController::class, 'editTeacherView'])->name('edit.teacher');
+    Route::post('dashboard/admin/teacher/update/{id}',[AdminController::class, 'updateTeacher'])->name('update.teacher');
+    Route::post('dashboard/admin/teacher/delete/{id}',[AdminController::class, 'deleteTeacher'])->name('delete.teacher');
+    
+      //Setting era
+    Route::get('/dashboard/admin/setting',[AdminController::class, 'setting'])->name('admin.setting');
+    Route::post('/admin/update-jumbotron', [AdminController::class, 'updateJumbotron'])->name('admin.update.jumbotron');
+
+    // Route::get('/dashboard-teacher/home',[AdminController::class,'guru'])->middleware(UserAccess::class.':guru');
+    // Route::get('/logout',[SesiController::class,'logout']);
 });
+
 
 Route::middleware(["auth"])->group(function () {
    Route::controller(StudentController::class)->group(function () {

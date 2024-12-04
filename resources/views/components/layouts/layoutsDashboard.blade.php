@@ -13,18 +13,16 @@
 <body>
     <x-navbar>
         @section('nav')
-        <div id="navbar-left" class="flex items-center transition-all duration-300">
-            <button class="text-2xl px-4 cursor-pointer text-slate-600" onclick="toggleSidebar()">☰</button>
-            <a class="navbar-item text-lg">Ripple UI</a>
+        <div id="navbar-left" class="flex justify-between w-full items-center transition-all duration-300">
+            <button class="text-2xl px-4 cursor-pointer text-slate-100" onclick="toggleSidebar()">☰</button>
+            <a href="{{ route('home.admin') }}" class="me-5">
+                <img src="{{ asset('img/logo-smk.png') }}" alt="Logo SMK" class="h-10 w-auto">
+            </a>
         </div>
-        <div class="navbar-right flex space-x-4">
-            <a href="#" class="navbar-item text-lg">Home</a>
-            <a href="#" class="navbar-item text-lg">About</a>
-            <a href="#" class="navbar-item text-lg">Contact</a>
-        </div>
+        
         @endsection
     </x-navbar>
-    <x-sidebar></x-sidebar>
+    <x-sidebar>{{ $title }}</x-sidebar>
 
 
 
