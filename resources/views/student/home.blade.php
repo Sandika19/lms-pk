@@ -51,21 +51,25 @@
 		<div class="mt-10">
 			<h2 class="text-3xl font-bold mb-4">Upcoming Assignments</h2>
 
-			{{-- <div class="w-full flex flex-wrap gap-3">
-				<a href="#"
-					class="w-full sm:h-[100px] h-[80px] flex items-center justify-start px-[20px] sm:px-[30px] gap-4 border-2 border-black border-opacity-20 shadow rounded-md hover:bg-slate-300 transition">
-					<div
-						class="flex justify-center items-center min-w-[40px] min-h-[40px] w-[40px] sm:min-w-[50px] sm:w-[50px] h-[40px] sm:min-h-[50px] sm:h-[50px] bg-[#D4DDF9] rounded-full">
-						<i class="fa-regular fa-file text-[#4A5B92] sm:text-[30px] text-[20px]"></i>
-					</div>
-					<div class="flex-1 min-w-0">
-						<h3 class="w-full sm:text-xl text-base font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
-							Kelas X PPLG - Portofolio Website Project
-						</h3>
-						<p class="sm:text-base text-sm">Senin, 14 Oktober, 23.59</p>
-					</div>
-				</a>
-			</div> --}}
+			<div class="w-full flex flex-wrap gap-3">
+				@forelse ($assignments as $assignment)
+					<a href="{{ route('student.show.assignment', ['classroom' => $assignment->classroom, 'material' => $assignment]) }}"
+						class="w-full sm:h-[100px] h-[80px] flex items-center justify-start px-[20px] sm:px-[30px] gap-4 border-2 border-black border-opacity-20 shadow rounded-md hover:bg-slate-300 transition">
+						<div
+							class="flex justify-center items-center min-w-[40px] min-h-[40px] w-[40px] sm:min-w-[50px] sm:w-[50px] h-[40px] sm:min-h-[50px] sm:h-[50px] bg-[#D4DDF9] rounded-full">
+							<i class="fa-regular fa-file text-[#4A5B92] sm:text-[30px] text-[20px]"></i>
+						</div>
+						<div class="flex-1 min-w-0">
+							<h3 class="w-full sm:text-xl text-base font-semibold overflow-hidden whitespace-nowrap text-ellipsis">
+								Kelas {{ Str::upper($assignment->classroom->class) }} {{ Str::upper($assignment->classroom->major) }} -
+								{{ $assignment->title }}
+							</h3>
+							<p class="sm:text-base text-sm">Deadline: {{ $assignment->deadline }}</p>
+						</div>
+					</a>
+				@empty
+				@endforelse
+			</div>
 
 		</div>
 

@@ -5,11 +5,11 @@
 			<div class="sm:p-7 p-5">
 				<div class="flex items-center justify-between">
 					<div class="flex items-center sm:gap-10 gap-5 sm:text-2xl text-lg font-bold text-[#757575]">
-						<a href=""
+						<a href="{{ route('student.classwork', $classroom) }}"
 							class="{{ str_contains(request()->path(), 'classwork') ? 'text-[#4A5B92] border-b-[3px] border-[#4A5B92]' : '' }}">
 							Classwork
 						</a>
-						<a href=""
+						<a href="{{ route('student.classwork.people', $classroom) }}"
 							class="{{ str_contains(request()->path(), 'people') ? 'text-[#4A5B92] border-b-[3px] border-[#4A5B92]' : '' }}">People</a>
 					</div>
 				</div>

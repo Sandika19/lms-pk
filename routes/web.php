@@ -76,6 +76,7 @@ Route::middleware(["auth"])->group(function () {
 
    Route::controller(ClassroomController::class)->group(function () {
       Route::get("/classes/{classroom}/classwork", "showStudentClasswork")->name("student.classwork");
+      Route::get("/classes/{classroom}/people", "showStudentClassworkPeople")->name("student.classwork.people");
 
       Route::get("/teacher/classes/create-class", "showCreateClassForm");
       Route::post("/teacher/classes/create-class/post", "createClass")->name("create.class");

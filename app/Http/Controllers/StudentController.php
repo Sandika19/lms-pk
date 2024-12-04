@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
-use App\Models\Enrollment;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Material;
+use App\Models\Classroom;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +20,15 @@ class StudentController extends Controller
 
       $enrolledClass = Classroom::join("enrollments", "classrooms.id", "=", "enrollments.classroom_id")->where("enrollments.user_id", $user)->where("enrollments.status", "enrolled")->select("classrooms.*")->get();
 
+      $assignments = $enrolledClass->flatMap(function ($class) {
+         return $class->materials->where("material_type", "assignment")->where("deadline", ">", now());
+      });
+
       return view("student.home", [
          "title" => "Home",
          "student" => $student,
          "enrolledClass" => $enrolledClass,
+         "assignments" => $assignments,
       ]);
    }
 
