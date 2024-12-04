@@ -105,8 +105,6 @@
 							@empty
 								<p class="text-center grid col-span-full">No class available.</p>
 							@endforelse
-
-
 						</div>
 					</div>
 

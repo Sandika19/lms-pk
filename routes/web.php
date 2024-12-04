@@ -12,13 +12,19 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\MaterialController;
+
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\MaterialController;
+
+use App\Models\Submission;
+
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\SubmissionController;
+
 
 Route::redirect("/", "/login");
 Route::redirect("/teacher", "/teacher/home");
@@ -106,10 +112,14 @@ Route::middleware(["auth"])->group(function () {
       Route::get("/teacher/update-profile/{teacher:nip}", "showUpdateProfile");
       Route::put("/teacher/update-profile/{teacher:nip}/put", "updateProfilePut")->name("teacher.update.pp");
       Route::get("/teacher/grade", "showGradePage")->middleware("check.teacher.class");
+      Route::get("/teacher/grade/{material}", "showGradeSubmission")->name("show.grade.submission");
+      Route::get("/teacher/recap", "showRecapPage");
+      Route::get("/teacher/recap/{classroom}", "showRecapDetails")->name("show.recap.details");
    });
 
    Route::controller(ClassroomController::class)->group(function () {
       Route::get("/classes/{classroom}/classwork", "showStudentClasswork")->name("student.classwork");
+      Route::get("/classes/{classroom}/people", "showStudentClassworkPeople")->name("student.classwork.people");
 
       Route::get("/teacher/classes/create-class", "showCreateClassForm");
       Route::post("/teacher/classes/create-class/post", "createClass")->name("create.class");
@@ -123,7 +133,6 @@ Route::middleware(["auth"])->group(function () {
    Route::controller(MaterialController::class)->group(function () {
       Route::get("/classes/{classroom}/materials/{material}", "studentMaterial")->name("student.material");
       Route::get("/classes/{classroom}/materials/{material}/assignment", "studentShowAssignment")->name("student.show.assignment");
-
       Route::get("/teacher/classes/{classroom}/add-material-file", "showAddFile")->name("show.add.material.file");
       Route::get("/teacher/classes/{classroom}/add-material-video", "showAddVideo")->name("show.add.material.video");
       Route::post("/teacher/classes/{classroom}/add-material/post", "addMaterial")->name("add.material");
@@ -140,6 +149,7 @@ Route::middleware(["auth"])->group(function () {
 
    Route::controller(SubmissionController::class)->group(function () {
       Route::post("/classes/{classroom}/materials/{material}/submissions", "submitAssignment")->name("submit.assignment");
+      Route::put("/teacher/grade/{material}/update-score/{submission}", "updateStudentScore")->name("update.student.score");
    });
 });
 

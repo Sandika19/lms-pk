@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Teacher;
 use App\Models\Material;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Class_;
 use Illuminate\Support\Facades\Log;
@@ -51,9 +52,12 @@ class ClassroomController extends Controller
 
    public function showClassworkPeople(Classroom $classroom)
    {
+      $enrolledUsers = $classroom->users()->wherePivot("status", "enrolled")->get();
+
       return view("teacher.classroom.people", [
          "title" => "My Class | $classroom->title",
          "classroom" => $classroom,
+         "enrolledUsers" => $enrolledUsers,
       ]);
    }
 
@@ -106,9 +110,23 @@ class ClassroomController extends Controller
    {
       $material = Material::where("classroom_id", $classroom->id)->get();
       return view("student.classroom.classwork", [
-         "title" => "$classroom->title",
+         "title" => "Class | $classroom->title",
          "classroom" => $classroom,
          "materials" => $material,
+      ]);
+   }
+
+   public function showStudentClassworkPeople(Classroom $classroom)
+   {
+      $teacher = Teacher::where("id", $classroom->teacher_id)->first();
+
+      $enrolledUsers = $classroom->users()->wherePivot("status", "enrolled")->get();
+
+      return view("student.classroom.people", [
+         "title" => "Class | $classroom->title",
+         "classroom" => $classroom,
+         "teacher" => $teacher,
+         "enrolledUsers" => $enrolledUsers,
       ]);
    }
 }

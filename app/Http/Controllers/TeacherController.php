@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
 use App\Models\Teacher;
+use App\Models\Material;
+use App\Models\Classroom;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -82,8 +84,56 @@ class TeacherController extends Controller
 
    public function showGradePage()
    {
+      $teacherId = Auth::user()->teacher->id;
+
+      $classrooms = Classroom::where("teacher_id", $teacherId)->get();
+
+      $assignments = Material::whereIn("classroom_id", $classrooms->pluck("id"))->where("material_type", "assignment")->get();
+
       return view("teacher.grade", [
-         "title" => "Grade",
+         "title" => "Grade Assignment",
+         "assignments" => $assignments,
+      ]);
+   }
+
+   public function showGradeSubmission(Material $material)
+   {
+      $submission = Submission::where("classroom_id", $material->classroom_id)
+         ->where("material_id", $material->id)
+         ->get();
+
+      return view("teacher.grade-submission", [
+         "title" => "Grade Details",
+         "submissions" => $submission,
+         "material" => $material,
+      ]);
+   }
+
+   public function showRecapPage()
+   {
+      $user = Auth::user();
+      $classrooms = Classroom::where("teacher_id", $user->teacher->id)->get();
+
+      return view("teacher.recap", [
+         "title" => "Recap",
+         "classrooms" => $classrooms,
+      ]);
+   }
+
+   public function showRecapDetails(Classroom $classroom)
+   {
+      $assignment = Material::where("classroom_id", $classroom->id)
+         ->where("material_type", "assignment")
+         ->get();
+
+      $enrolledUsers = $classroom->users()->wherePivot("status", "enrolled")->get();
+      // $submit = $enrolledUsers->submission->first();
+
+      return view("teacher.recap-details", [
+         "title" => "Recap",
+         "classroom" => $classroom,
+         "assignments" => $assignment,
+         "enrolledUsers" => $enrolledUsers,
       ]);
    }
 }

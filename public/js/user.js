@@ -184,11 +184,8 @@ if (majorSelect) {
    radioButtons.forEach((radio) => {
       radio.addEventListener("change", () => {
          const level = radio.value;
-
          const params = new URLSearchParams(window.location.search);
-
          params.set("level", level);
-
          window.location.href = `${window.location.pathname}?${params.toString()}`;
       });
    });

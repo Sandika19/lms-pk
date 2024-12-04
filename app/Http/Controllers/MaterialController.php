@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use App\Models\Classroom;
+use App\Models\Submission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
@@ -167,10 +169,16 @@ class MaterialController extends Controller
 
    public function studentShowAssignment(Classroom $classroom, Material $material)
    {
+      $assignment = Submission::where("user_id", Auth::user()->id)
+         ->where("material_id", $material->id)
+         ->where("classroom_id", $classroom->id)
+         ->first();
+
       return view("student.classroom.material.show-assignment", [
          "title" => "Assignment | $material->title",
          "material" => $material,
          "classroom" => $classroom,
+         "assignment" => $assignment,
       ]);
    }
 }

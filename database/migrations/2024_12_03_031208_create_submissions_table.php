@@ -21,7 +21,8 @@ return new class extends Migration {
          $table->string("file_path");
          $table->timestamp("submitted_at")->nullable();
          $table->string("file_type")->nullable();
-         $table->integer("nilai")->default(0);
+         $table->string("file_name")->nullable();
+         $table->integer("score")->nullable();
          $table->timestamps();
       });
    }
