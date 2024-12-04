@@ -26,6 +26,7 @@ class AdminController extends Controller
 
         return view('dashboard.admin',[
             'title'=>'Data Users',
+            'titletop'=>'Admin | Dashboard',
             'jumlah_murid' => $jumlah_murid,
             'jumlah_guru' => $jumlah_guru,
             'jumlah_admin' => $jumlah_admin,
@@ -44,6 +45,7 @@ class AdminController extends Controller
         $users = User::where('role', 'student')->get();
         return view('dashboard.adminMurid',[
             'title'=>'Students Data',
+            'titletop'=>'Students | Dashboard',
             'jumlah_murid' => $jumlah_murid,
             'users' => $users
             
@@ -107,6 +109,7 @@ class AdminController extends Controller
         $users = User::where('role', 'teacher')->get();
         return view('dashboard.adminTeacher',[
             'title'=>'Teachers Data',
+            'titletop'=>'Teachers | Dashboard',
             'jumlah_guru' => $jumlah_guru,
             'users' => $users
             
@@ -163,7 +166,8 @@ class AdminController extends Controller
 
     function setting(){
         return view('dashboard.setting',[
-            'title'=>'Dashboard Setting'
+            'title'=>'Setting',
+            'titletop'=>'Setting',
         ]);
     }
 

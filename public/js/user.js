@@ -170,7 +170,7 @@ window.addEventListener('resize', adjustFooterPosition);
 // == FOOTER =!
 
 // == STUDENT CLASSES ==
-const majorSelect = document.getElementById("major");
+const majorSelect = document.getElementById("major-select-class");
 const radioButtons = document.querySelectorAll("[name='level']");
 
 if (majorSelect) {

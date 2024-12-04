@@ -109,7 +109,7 @@ class MaterialController extends Controller
          "title" => "required|string|max:255",
          "description" => "nullable|string",
          "file_path" => "file|mimes:pdf,ppt,pptx,mp4,mkv|max:102400",
-         "deadline" => "required|date|",
+         "deadline" => "date",
       ]);
 
       if (!empty($validatedData["video_link"])) {
