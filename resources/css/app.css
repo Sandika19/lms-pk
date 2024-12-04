@@ -70,7 +70,3 @@ footer {
    @apply text-[#A03739];
 }
 /* != Icon Color Based On Class =! */
-
-.sticky-at-bottom {
-   @apply fixed bottom-0 left-0 right-0;
-}

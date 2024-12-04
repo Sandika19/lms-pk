@@ -12,9 +12,4 @@ class Material extends Model
    {
       return $this->belongsTo(Classroom::class);
    }
-
-   public function submissions()
-   {
-      return $this->hasMany(Submission::class);
-   }
 }
