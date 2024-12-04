@@ -12,20 +12,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-
-use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\MaterialController;
-
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TeacherController;
-
-use App\Models\Submission;
-use Illuminate\Support\Facades\Storage;
-
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ClassroomController;
-
 
 Route::redirect("/", "/login");
 Route::redirect("/teacher", "/teacher/home");
@@ -75,68 +66,49 @@ Route::middleware(['auth'])->group(function(){
     // Route::get('/logout',[SesiController::class,'logout']);
 });
 
+Route::middleware(["auth"])->group(function () {
+   Route::get("/home", [StudentController::class, "index"])
+      ->name("student.home")
+      ->middleware("check.profile.data");
+   Route::get("/profile", [StudentController::class, "profile"])->name("student.profile");
+   Route::get("/complete-profile", [StudentController::class, "completeProfile"]);
+   Route::post("/complete-profile-post", [StudentController::class, "completeProfilePost"]);
+   Route::get("/update-profile/{student:nis}", [StudentController::class, "showUpdateProfile"]);
+   Route::put("/update-profile/{student:nis}/put", [StudentController::class, "updateProfilePut"]);
+});
 
 Route::middleware(["auth"])->group(function () {
-   Route::controller(StudentController::class)->group(function () {
-      Route::get("/home", "index")->name("student.home")->middleware("check.profile.data");
-      Route::get("/profile", "profile")->name("student.profile");
-      Route::get("/complete-profile", "completeProfile");
-      Route::post("/complete-profile-post", "completeProfilePost");
-      Route::get("/update-profile/{student:nis}", "showUpdateProfile");
-      Route::put("/update-profile/{student:nis}/put", "updateProfilePut");
+   Route::prefix("teacher")->group(function () {
+      Route::controller(TeacherController::class)->group(function () {
+         Route::get("/home", "index");
+         Route::get("/classes", "showClasses");
+         Route::get("/profile", "profile")->name("teacher.profile");
+         Route::get("/update-profile/{teacher:nip}", "showUpdateProfile");
+         Route::put("/update-profile/{teacher:nip}/put", "updateProfilePut")->name("teacher.update.pp");
+         Route::get("/grade", "showGradePage")->middleware("check.teacher.class");
+      });
 
-      Route::get("/classes", "showClassList");
-   });
+      Route::controller(ClassroomController::class)->group(function () {
+         Route::get("/classes/create-class", "showCreateClassForm");
+         Route::post("/classes/create-class/post", "createClass")->name("create.class");
+         Route::get("/classes/{classroom}/classwork", "showClasswork")->name("show.classwork");
+         Route::get("/classes/{classroom}/people", "showClassworkPeople")->name("show.classwork.people");
+         Route::delete("/classes/{classroom}/delete", "deleteClass")->name("delete.class");
+         Route::get("/classes/{classroom}/update-class", "showUpdateClass")->name("show.update.class");
+         Route::put("/classes/{classroom}/update", "updateClass")->name("update.class");
+      });
 
-   Route::controller(EnrollmentController::class)->group(function () {
-      Route::post("/classes/{classroom}/enrollment", "studentClassEnrollment")->name("student.class.enrollment");
-   });
+      Route::controller(MaterialController::class)->group(function () {
+         Route::get("/classes/{classroom}/add-material-file", "showAddFile")->name("show.add.material.file");
+         Route::get("/classes/{classroom}/add-material-video", "showAddVideo")->name("show.add.material.video");
+         Route::post("/classes/{classroom}/add-material-file/post", "addMaterial")->name("add.material");
+         Route::delete("/classes/{classroom}/materials/{material}/delete", "deleteMaterial")->name("delete.material");
 
-   Route::controller(TeacherController::class)->group(function () {
-      Route::get("/teacher/home", "index");
-      Route::get("/teacher/classes", "showClasses");
-      Route::get("/teacher/profile", "profile")->name("teacher.profile");
-      Route::get("/teacher/update-profile/{teacher:nip}", "showUpdateProfile");
-      Route::put("/teacher/update-profile/{teacher:nip}/put", "updateProfilePut")->name("teacher.update.pp");
-      Route::get("/teacher/grade", "showGradePage")->middleware("check.teacher.class");
-      Route::get("/teacher/grade/{material}", "showGradeSubmission")->name("show.grade.submission");
-      Route::get("/teacher/recap", "showRecapPage");
-      Route::get("/teacher/recap/{classroom}", "showRecapDetails")->name("show.recap.details");
-   });
+         Route::get("/classes/{classroom}/materials/{material}/update-material-file", "showMaterialFileUpdate")->name("show.update.file.material");
+         Route::get("/classes/{classroom}/materials/{material}/update-material-video", "showMaterialVideoUpdate")->name("show.update.video.material");
 
-   Route::controller(ClassroomController::class)->group(function () {
-      Route::get("/classes/{classroom}/classwork", "showStudentClasswork")->name("student.classwork");
-      Route::get("/classes/{classroom}/people", "showStudentClassworkPeople")->name("student.classwork.people");
-
-      Route::get("/teacher/classes/create-class", "showCreateClassForm");
-      Route::post("/teacher/classes/create-class/post", "createClass")->name("create.class");
-      Route::get("/teacher/classes/{classroom}/classwork", "showClasswork")->name("show.classwork");
-      Route::get("/teacher/classes/{classroom}/people", "showClassworkPeople")->name("show.classwork.people");
-      Route::delete("/teacher/classes/{classroom}/delete", "deleteClass")->name("delete.class");
-      Route::get("/teacher/classes/{classroom}/update-class", "showUpdateClass")->name("show.update.class");
-      Route::put("/teacher/classes/{classroom}/update", "updateClass")->name("update.class");
-   });
-
-   Route::controller(MaterialController::class)->group(function () {
-      Route::get("/classes/{classroom}/materials/{material}", "studentMaterial")->name("student.material");
-      Route::get("/classes/{classroom}/materials/{material}/assignment", "studentShowAssignment")->name("student.show.assignment");
-      Route::get("/teacher/classes/{classroom}/add-material-file", "showAddFile")->name("show.add.material.file");
-      Route::get("/teacher/classes/{classroom}/add-material-video", "showAddVideo")->name("show.add.material.video");
-      Route::post("/teacher/classes/{classroom}/add-material/post", "addMaterial")->name("add.material");
-      Route::delete("/teacher/classes/{classroom}/materials/{material}/delete", "deleteMaterial")->name("delete.material");
-      Route::get("/teacher/classes/{classroom}/materials/{material}/update-material-file", "showMaterialFileUpdate")->name("show.update.file.material");
-      Route::get("/teacher/classes/{classroom}/materials/{material}/update-material-video", "showMaterialVideoUpdate")->name("show.update.video.material");
-      Route::put("/teacher/classes/{classroom}/materials/{material}/update-material", "updateMaterial")->name("update.material");
-      Route::get("/teacher/classes/{classroom}/materials/{material}", "showMaterial")->name("show.material");
-      Route::get("/teacher/classes/{classroom}/add-assignment", "showAddAssignment")->name("show.add.assignment");
-      Route::get("/teacher/classes/{classroom}/materials/{material}/update-assignment", "showAssignmentUpdate")->name("show.update.assignment");
-
-      // Route::get("/teacher/classes/{classroom}/materials/{material}", "showAssignment")->name("show.assignment");
-   });
-
-   Route::controller(SubmissionController::class)->group(function () {
-      Route::post("/classes/{classroom}/materials/{material}/submissions", "submitAssignment")->name("submit.assignment");
-      Route::put("/teacher/grade/{material}/update-score/{submission}", "updateStudentScore")->name("update.student.score");
+         Route::put("/classes/{classroom}/materials/{material}/update-material", "updateMaterial")->name("update.material");
+      });
    });
 });
 

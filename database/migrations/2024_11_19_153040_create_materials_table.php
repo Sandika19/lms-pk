@@ -17,11 +17,8 @@ return new class extends Migration {
          $table->string("title");
          $table->text("description")->nullable();
          $table->string("type");
-         $table->enum("material_type", ["file", "video", "assignment"]);
-         $table->string("file_path")->nullable();
-         $table->string("file_name")->nullable();
-         $table->string("video_link")->nullable();
-         $table->dateTime("deadline")->nullable();
+         $table->string("file_path");
+         $table->string("file_name");
          $table->timestamps();
       });
    }

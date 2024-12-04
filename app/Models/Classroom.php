@@ -45,16 +45,4 @@ class Classroom extends Model
 
       return $classNumber;
    }
-
-   public function users()
-   {
-      return $this->belongsToMany(User::class, "enrollments")
-         ->withPivot("status")
-         ->withTimestamps();
-   }
-
-   public function submissions()
-   {
-      return $this->hasMany(Submission::class);
-   }
 }

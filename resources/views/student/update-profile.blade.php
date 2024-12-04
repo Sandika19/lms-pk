@@ -1,7 +1,7 @@
 @extends('dashboard.user')
 
 @section('content')
-	<div class="sm:p-6 p-4">
+	<div class="sm:p-6 p-4 mb-8">
 		<div class="max-w-5xl w-full bg-white mx-auto rounded-md">
 			<div class="pt-7">
 				<h2 class="text-3xl font-bold mb-10 text-center">Update Profile</h2>
