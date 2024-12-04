@@ -149,3 +149,40 @@ if (addContentButton && dropdown) {
    });
 }
 // != ADD CONTENT BUTTON =!
+
+// == FOOTER ==
+const footerSection = document.getElementById("footer");
+
+function isScrollbarVisible() {
+   return document.body.scrollHeight > window.innerHeight || document.documentElement.scrollHeight > window.innerHeight;
+}
+
+if (!isScrollbarVisible()) {
+   footerSection.classList.add("sticky-at-bottom");
+} else {
+   footerSection.classList.remove("sticky-at-bottom");
+}
+// != FOOTER =!
+
+// == STUDENT CLASSES ==
+const majorSelect = document.getElementById("major-select-class");
+const radioButtons = document.querySelectorAll("[name='level']");
+
+if (majorSelect) {
+   majorSelect.addEventListener("change", (e) => {
+      const selectedValue = e.target.value;
+      if (selectedValue) {
+         window.location.href = `/classes?major=${selectedValue}`;
+      }
+   });
+
+   radioButtons.forEach((radio) => {
+      radio.addEventListener("change", () => {
+         const level = radio.value;
+         const params = new URLSearchParams(window.location.search);
+         params.set("level", level);
+         window.location.href = `${window.location.pathname}?${params.toString()}`;
+      });
+   });
+}
+// != STUDENT CLASSES =!

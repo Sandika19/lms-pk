@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Teacher;
 use App\Models\Material;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Class_;
 use Illuminate\Support\Facades\Log;
@@ -24,10 +25,10 @@ class ClassroomController extends Controller
       $validatedData = $request->validate([
          "title" => "required|string|max:255",
          "class" => "required|in:x,xi,xii",
+         "major" => "required|in:pplg,dkv,akl,otkp,bdp",
          "thumbnail_class" => "required|file|mimes:jpg,jpeg,png|max:3000",
          "instructions" => "nullable|string",
       ]);
-      // dd($validatedData);
 
       if ($request->file("thumbnail_class")) {
          $validatedData["thumbnail_class"] = $request->file("thumbnail_class")->store("thumbnail-class", "public");
@@ -51,9 +52,12 @@ class ClassroomController extends Controller
 
    public function showClassworkPeople(Classroom $classroom)
    {
+      $enrolledUsers = $classroom->users()->wherePivot("status", "enrolled")->get();
+
       return view("teacher.classroom.people", [
          "title" => "My Class | $classroom->title",
          "classroom" => $classroom,
+         "enrolledUsers" => $enrolledUsers,
       ]);
    }
 
@@ -79,9 +83,11 @@ class ClassroomController extends Controller
 
    public function updateClass(Classroom $classroom, Request $request)
    {
+      dd($request);
       $validatedData = $request->validate([
          "title" => "required|string|max:255",
          "class" => "required|in:x,xi,xii",
+         "major" => "required|in:pplg,dkv,akl,otkp,bdp",
          "instructions" => "nullable|string",
          "thumbnail_class" => "file|mimes:jpg,jpeg,png|max:3000",
       ]);
@@ -98,5 +104,29 @@ class ClassroomController extends Controller
       return redirect()
          ->route("show.classwork", $classroom->id)
          ->with("update.class.success", "Your class has been updated successfully!");
+   }
+
+   public function showStudentClasswork(Classroom $classroom)
+   {
+      $material = Material::where("classroom_id", $classroom->id)->get();
+      return view("student.classroom.classwork", [
+         "title" => "Class | $classroom->title",
+         "classroom" => $classroom,
+         "materials" => $material,
+      ]);
+   }
+
+   public function showStudentClassworkPeople(Classroom $classroom)
+   {
+      $teacher = Teacher::where("id", $classroom->teacher_id)->first();
+
+      $enrolledUsers = $classroom->users()->wherePivot("status", "enrolled")->get();
+
+      return view("student.classroom.people", [
+         "title" => "Class | $classroom->title",
+         "classroom" => $classroom,
+         "teacher" => $teacher,
+         "enrolledUsers" => $enrolledUsers,
+      ]);
    }
 }

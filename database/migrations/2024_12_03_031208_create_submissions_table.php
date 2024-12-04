@@ -10,18 +10,19 @@ return new class extends Migration {
     */
    public function up(): void
    {
-      Schema::create("materials", function (Blueprint $table) {
+      Schema::create("submissions", function (Blueprint $table) {
          $table->id();
+         $table->unsignedBigInteger("user_id");
+         $table->unsignedBigInteger("material_id");
          $table->unsignedBigInteger("classroom_id");
+         $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
          $table->foreign("classroom_id")->references("id")->on("classrooms")->onDelete("cascade");
-         $table->string("title");
-         $table->text("description")->nullable();
-         $table->string("type");
-         $table->enum("material_type", ["file", "video", "assignment"]);
-         $table->string("file_path")->nullable();
+         $table->foreign("material_id")->references("id")->on("materials")->onDelete("cascade");
+         $table->string("file_path");
+         $table->timestamp("submitted_at")->nullable();
+         $table->string("file_type")->nullable();
          $table->string("file_name")->nullable();
-         $table->string("video_link")->nullable();
-         $table->dateTime("deadline")->nullable();
+         $table->integer("score")->nullable();
          $table->timestamps();
       });
    }
@@ -31,6 +32,6 @@ return new class extends Migration {
     */
    public function down(): void
    {
-      Schema::dropIfExists("materials");
+      Schema::dropIfExists("submissions");
    }
 };

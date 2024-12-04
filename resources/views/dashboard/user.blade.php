@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-white scroll-smooth">
+<html lang="en" class="bg-[#E8E8E8] scroll-smooth ">
 
 	<head>
 		<meta charset="UTF-8">
@@ -24,7 +24,7 @@
 			rel="stylesheet">
 	</head>
 
-	<body class="w-full bg-[#E8E8E8] pt-[90px]">
+	<body class="w-full bg-[#E8E8E8] pt-[90px] h-full">
 		{{-- === Header === --}}
 		@include('partial.user-navbar')
 		{{-- != Header =! --}}
@@ -34,13 +34,13 @@
 		{{-- != Sidebar =! --}}
 
 		{{-- === Main === --}}
-		<main id="main" class="h-full lg:ml-[300px] ml-0">
+		<main id="main" class="lg:ml-[300px] ml-0 bg-[#E8E8E8] pb-7">
 			@yield('content')
 		</main>
 		{{-- != Main =! --}}
 
 		{{-- === Footer === --}}
-		<footer id="footer" class="lg:ml-[300px] ml-0 relative bottom-0">
+		<footer id="footer" class="lg:ml-[300px] ml-0">
 			<div class="w-full p-4 bg-[#4A5B92] text-center">
 				<h3 class="text-base font-normal text-white">© 2024 LMS SMKN 46 Jakarta | All Rights Reserved.</h3>
 			</div>
